@@ -73,11 +73,13 @@ public class IdentityService extends HttpServlet {
         IdentityDB db = new IdentityDB();
         try{
             ResultSet rs = db.select(query);
-            
-            rs.next();
+            String user_id = null;
+            String passw = null;
+            if(rs.next()) {
             //Retrieve by column name
-            String user_id = rs.getString("user_id");
-            String passw = rs.getString("password");
+                user_id = rs.getString("user_id");
+                passw = rs.getString("password");
+            }
             if(pass.equals(passw)) {
                 json.put("status", "valid");
                 json.put("token", generateToken());
