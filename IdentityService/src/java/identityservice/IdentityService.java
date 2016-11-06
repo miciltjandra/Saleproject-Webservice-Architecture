@@ -18,6 +18,13 @@ import java.security.SecureRandom;
 import java.math.BigInteger;
 
 import database.IdentityDB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.Cookie;
+import org.json.simple.JSONObject;
+
+//import org.json.simple.JSONObject;
 
 /**
  *
@@ -26,20 +33,20 @@ import database.IdentityDB;
 @WebServlet(name = "IdentityService", urlPatterns = {"/IdentityService"})
 public class IdentityService extends HttpServlet {
     
-    public String generateToken(int user_id) {
+    public String generateToken() {
         SecureRandom random = new SecureRandom();
         String token = new BigInteger(50, random).toString(32);
         
-        IdentityDB db = new IdentityDB();
+        /*IdentityDB db = new IdentityDB();
         String sql = "INSERT INTO accesstoken VALUES('"+token+"', now(),'"+user_id+"')";
         try{
             db.update(sql);
         }
         catch(SQLException e) {
             
-        }
+        }*/
         
-        return sql;
+        return token;
     }
     
     public void extendToken(String token) {
@@ -50,13 +57,41 @@ public class IdentityService extends HttpServlet {
         return "stub";
     }
     
-    public boolean login(HttpServletRequest request) {
+    public JSONObject login(HttpServletRequest request) throws SQLException {
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
-        if ((user.equals("asdf")) && (pass.equals("asdf")))
-        return true;
-        else
-        return false;
+        JSONObject json = new JSONObject();
+        String query = "aaa";
+        if (user.contains("@")) {
+            query = "SELECT user_id, password FROM user WHERE email = '" + user + "'";
+        }
+        else {
+            query = "SELECT user_id, password FROM user WHERE username = '" + user + "'";
+        }
+        
+        
+        IdentityDB db = new IdentityDB();
+        try{
+            ResultSet rs = db.select(query);
+            
+            rs.next();
+            //Retrieve by column name
+            String user_id = rs.getString("user_id");
+            String passw = rs.getString("password");
+            if(pass.equals(passw)) {
+                json.put("status", "valid");
+                json.put("token", generateToken());
+                json.put("time", "30");
+                json.put("user_id", user_id);
+            }
+            else {
+                json.put("status", "error");
+            }
+        }
+        catch(SQLException e) {
+            
+        }   
+        return json;
     }
     
     public boolean register(HttpServletRequest request) {
@@ -83,6 +118,16 @@ public class IdentityService extends HttpServlet {
         
         PrintWriter out = response.getWriter();
         out.println("tis is get");
+        
+        //request.setAttribute("user", "asdfgh");
+        //RequestDispatcher a = request.getRequestDispatcher("login.jsp");
+        //a.include(request,response);
+        //Cookie userCookie = new Cookie("user", "asdf");
+        //response.addCookie(userCookie);
+        //out.write("asdfghjkl");
+        //response.sendRedirect("http://localhost:8080/Client/catalog.jsp");
+        //sendResponse(response, "asdf", false);
+        
         /*IdentityDB db = new IdentityDB();
         // Set response content type
         response.setContentType("text/html");
@@ -133,21 +178,26 @@ public class IdentityService extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        out.println(request.getParameter("user"));
+        //out.println(request.getParameter("user"));
+        //out.println(request.getParameter("pass"));
         
+        JSONObject json = new JSONObject();
         
+        //response.setContentType("application/json;charset=UTF-8");
+        //out.println(generateToken(12));
+        //out.println("30");
         
         String action = request.getParameter("action");
         if(action.equals("login")) {
-            if(login(request)) {
-                out.println("valid");
-            }
-            else {
-                out.println("invalid");
+            try {
+                json = login(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(IdentityService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else if(action.equals("register")) {
             register(request);
         }
+        out.write(json.toString());
     }
 
     /**

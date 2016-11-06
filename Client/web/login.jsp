@@ -14,7 +14,7 @@
     </head>
     <div class="middle title"><span class="maroon">Sale</span><span id="project">Project</span></div>
     <body class="middle">
-        <form action = "http://localhost:8082/IdentityService/IdentityService" method = "post" id = "loginform"  class="text">
+        <form action = "LoginServlet" method = "post" id = "loginform"  class="text">
             <input type="hidden" name="action" value="login">
             <legend class="text large"> Please Login </legend>
             <hr>
