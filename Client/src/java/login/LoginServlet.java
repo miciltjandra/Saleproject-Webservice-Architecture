@@ -86,10 +86,10 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         // create the HttpURLConnection
-        URL url = new URL("http://localhost:8080/IdentityService/IdentityService");
+        URL url = new URL("http://localhost:8080/IdentityService/Login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         
-        String urlParameters  = "action=login&user=" + request.getParameter("user")
+        String urlParameters  = "&user=" + request.getParameter("user")
                                 +"&pass=" + request.getParameter("pass");
         
         
@@ -139,12 +139,15 @@ public class LoginServlet extends HttpServlet {
             String token = (String) jsonObj.get("token");
             String time = (String) jsonObj.get("time");
             String user_id = (String) jsonObj.get("user_id");
+            String username = (String) jsonObj.get("username");
             Cookie accesstoken = new Cookie("sptoken", token);
             Cookie expirytime = new Cookie("sptime", time);
             Cookie user = new Cookie("spuser", user_id);
+            Cookie usernamecookie = new Cookie("spusername", username);
             response.addCookie(accesstoken);
             response.addCookie(expirytime);
             response.addCookie(user);
+            response.addCookie(usernamecookie);
             response.sendRedirect("catalog.jsp");
         }
         else {

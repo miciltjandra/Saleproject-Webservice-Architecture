@@ -12,10 +12,9 @@
         <title>Login Page</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <div class="middle title"><span class="maroon">Sale</span><span id="project">Project</span></div>
+    <jsp:include page="header.html"/>
     <body class="middle">
         <form action = "LoginServlet" method = "post" id = "loginform"  class="text">
-            <input type="hidden" name="action" value="login">
             <legend class="text large"> Please Login </legend>
             <hr>
             Email or Username <br/>

@@ -7,24 +7,77 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-        <%
-String userName = null;
-Cookie[] cookies = request.getCookies();
-if(cookies !=null){
-for(Cookie cookie : cookies){%>
-	
-        <%= cookie.getName() %>
-<%
-if(cookie.getName().equals("user")) userName = cookie.getValue();}
-}
-//if(userName == null) response.sendRedirect("login.jsp");
-%>
-<%=userName%>
-    </body>
+	<head>
+		<title> Catalog </title>
+		<link rel="stylesheet" href="style.css">
+		<script src="catalogscript.js"></script>
+	</head>
+        <jsp:include page="header.html"/>
+	<body class="middle">		
+            
+            <h1> What are you going to buy today? </h1>
+            <hr/>
+            <form id="searchbox" action="#" method="post">
+            <input type="text" name="search" id="search" placeholder="Search catalog ...">
+            <input type="submit" class="submit" id="submitsearch" name="submit_search" value="   GO   "> <br/>
+            by
+            <label class="searchradio"><input type="radio" name="searchcategory" value="product_name" checked="checked"> product </label><br/>
+            <label class="searchradio"><input type="radio" name="searchcategory" value="username"> store </label>
+            </form>
+            <br/>
+                <%-- start web service invocation --%><hr/>
+                <%
+                    try {
+                        marketplace.Marketplace_Service service = new marketplace.Marketplace_Service();
+                        marketplace.Marketplace port = service.getMarketplacePort();
+                         // TODO initialize WS operation arguments here
+                        java.lang.String searchtype = "";
+                        java.lang.String value = "";
+                        if (request.getParameter("submit_search") != null) {
+                            searchtype = request.getParameter("searchcategory");
+                            value = request.getParameter("search");
+                        } else {
+                            searchtype = "base";
+                        }
+                        
+                        // TODO process result here
+                        java.util.List<marketplace.Product> result = port.retrieveProduct(searchtype, value);
+                        for (marketplace.Product product : result) {
+                            out.println("<div class=\"product\">");
+                            out.println("<div class=\"bold\">" + product.getUsername() + "</div>");
+                            out.println("<div>added this on " + product.getAddedDate() + "</div>");
+                            out.println("<hr/>");
+                            out.println("<div class=\"catalogleft\">");
+                            out.println("<img class=\"icon\" src=\"" + product.getImage() + "\" alt=\""+ product.getProductName() +"\"/> <br/>");
+                            out.println("</div>");
+                            out.println("<div class=\"catalogmid\">");
+                            out.println("<div class=\"name\">" + product.getProductName() + "</div>");
+                            out.println("<div class=\"price\"> IDR " + product.getPrice() + "</div>");
+                            out.println("<div class=\"desc\">" + product.getDescription() + "</div>");
+                            out.println("</div>");
+                            out.println("<div class=\"catalogright\">");
+                            out.println("<span id=\""+product.getProductId()+"_like\">" + product.getLikes() + "</span> likes <br/>");
+                            out.println(product.getPurchases() + " purchases<br/><br/>");
+                            
+                            //getliked!!
+                            
+                            out.print("<a class=\"likebut\" id=\"" + product.getProductId() + "_likebut\" ");
+                            out.println("> LIKE </a>");
+                            
+                            //onclick increase like!!
+                            
+                            out.println("<a class=\"buybut\"href=\"confirm_purchase.jsp?product="+product.getProductId()+"\"> BUY </a>");
+                            out.println("</div>");
+                            out.println("<div class=\"clear\">");
+                            out.println("<hr/>\n<br/>");
+                            out.println("</div>");
+                            out.println("</div>\n");
+                        }
+                    } catch (Exception ex) {
+                        // TODO handle custom exceptions here
+                    }
+                %>
+                <%-- end web service invocation --%><hr/>
+
+	</body>
 </html>
