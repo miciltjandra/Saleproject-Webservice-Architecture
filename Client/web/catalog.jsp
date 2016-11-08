@@ -30,7 +30,10 @@
                     try {
                         marketplace.Marketplace_Service service = new marketplace.Marketplace_Service();
                         marketplace.Marketplace port = service.getMarketplacePort();
-                         // TODO initialize WS operation arguments here
+                        // TODO initialize WS operation arguments here
+                        java.lang.String token = "";
+                        java.lang.String id = "";
+                         
                         java.lang.String searchtype = "";
                         java.lang.String value = "";
                         if (request.getParameter("submit_search") != null) {
@@ -41,37 +44,42 @@
                         }
                         
                         // TODO process result here
-                        java.util.List<marketplace.Product> result = port.retrieveProduct(searchtype, value);
-                        for (marketplace.Product product : result) {
-                            out.println("<div class=\"product\">");
-                            out.println("<div class=\"bold\">" + product.getUsername() + "</div>");
-                            out.println("<div>added this on " + product.getAddedDate() + "</div>");
-                            out.println("<hr/>");
-                            out.println("<div class=\"catalogleft\">");
-                            out.println("<img class=\"icon\" src=\"" + product.getImage() + "\" alt=\""+ product.getProductName() +"\"/> <br/>");
-                            out.println("</div>");
-                            out.println("<div class=\"catalogmid\">");
-                            out.println("<div class=\"name\">" + product.getProductName() + "</div>");
-                            out.println("<div class=\"price\"> IDR " + product.getPrice() + "</div>");
-                            out.println("<div class=\"desc\">" + product.getDescription() + "</div>");
-                            out.println("</div>");
-                            out.println("<div class=\"catalogright\">");
-                            out.println("<span id=\""+product.getProductId()+"_like\">" + product.getLikes() + "</span> likes <br/>");
-                            out.println(product.getPurchases() + " purchases<br/><br/>");
-                            
-                            //getliked!!
-                            
-                            out.print("<a class=\"likebut\" id=\"" + product.getProductId() + "_likebut\" ");
-                            out.println("> LIKE </a>");
-                            
-                            //onclick increase like!!
-                            
-                            out.println("<a class=\"buybut\"href=\"confirm_purchase.jsp?product="+product.getProductId()+"\"> BUY </a>");
-                            out.println("</div>");
-                            out.println("<div class=\"clear\">");
-                            out.println("<hr/>\n<br/>");
-                            out.println("</div>");
-                            out.println("</div>\n");
+                        java.util.List<marketplace.Product> result = port.retrieveProduct(token, id, searchtype, value);
+                        if (result.get(0).getStatus().equals("invalid")) {
+                            response.sendRedirect("login.jsp");
+                        }
+                        else {
+                            for (marketplace.Product product : result) {
+                                out.println("<div class=\"product\">");
+                                out.println("<div class=\"bold\">" + product.getUsername() + "</div>");
+                                out.println("<div>added this on " + product.getAddedDate() + "</div>");
+                                out.println("<hr/>");
+                                out.println("<div class=\"catalogleft\">");
+                                out.println("<img class=\"icon\" src=\"" + product.getImage() + "\" alt=\""+ product.getProductName() +"\"/> <br/>");
+                                out.println("</div>");
+                                out.println("<div class=\"catalogmid\">");
+                                out.println("<div class=\"name\">" + product.getProductName() + "</div>");
+                                out.println("<div class=\"price\"> IDR " + product.getPrice() + "</div>");
+                                out.println("<div class=\"desc\">" + product.getDescription() + "</div>");
+                                out.println("</div>");
+                                out.println("<div class=\"catalogright\">");
+                                out.println("<span id=\""+product.getProductId()+"_like\">" + product.getLikes() + "</span> likes <br/>");
+                                out.println(product.getPurchases() + " purchases<br/><br/>");
+
+                                //getliked!!
+
+                                out.print("<a class=\"likebut\" id=\"" + product.getProductId() + "_likebut\" ");
+                                out.println("> LIKE </a>");
+
+                                //onclick increase like!!
+
+                                out.println("<a class=\"buybut\"href=\"confirm_purchase.jsp?product="+product.getProductId()+"\"> BUY </a>");
+                                out.println("</div>");
+                                out.println("<div class=\"clear\">");
+                                out.println("<hr/>\n<br/>");
+                                out.println("</div>");
+                                out.println("</div>\n");
+                            }
                         }
                     } catch (Exception ex) {
                         // TODO handle custom exceptions here

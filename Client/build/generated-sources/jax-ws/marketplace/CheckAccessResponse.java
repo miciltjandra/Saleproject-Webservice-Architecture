@@ -3,20 +3,21 @@ package marketplace;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for hello complex type.
+ * <p>Java class for checkAccessResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="hello"&gt;
+ * &lt;complexType name="checkAccessResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -26,35 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "hello", propOrder = {
-    "name"
+@XmlType(name = "checkAccessResponse", propOrder = {
+    "_return"
 })
-public class Hello {
+public class CheckAccessResponse {
 
-    protected String name;
+    @XmlElement(name = "return")
+    protected String _return;
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the return property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getReturn() {
+        return _return;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the return property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setReturn(String value) {
+        this._return = value;
     }
 
 }

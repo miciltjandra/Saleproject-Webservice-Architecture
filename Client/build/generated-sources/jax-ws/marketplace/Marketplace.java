@@ -8,6 +8,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import javax.xml.ws.FaultAction;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -27,8 +28,33 @@ public interface Marketplace {
 
     /**
      * 
+     * @param id
+     * @param token
+     * @return
+     *     returns java.lang.String
+     * @throws IOException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "checkAccess", targetNamespace = "http://marketplace/", className = "marketplace.CheckAccess")
+    @ResponseWrapper(localName = "checkAccessResponse", targetNamespace = "http://marketplace/", className = "marketplace.CheckAccessResponse")
+    @Action(input = "http://marketplace/Marketplace/checkAccessRequest", output = "http://marketplace/Marketplace/checkAccessResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://marketplace/Marketplace/checkAccess/Fault/IOException")
+    })
+    public String checkAccess(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "id", targetNamespace = "")
+        String id)
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
      * @param searchtype
+     * @param id
      * @param value
+     * @param token
      * @return
      *     returns java.util.List<marketplace.Product>
      */
@@ -38,24 +64,13 @@ public interface Marketplace {
     @ResponseWrapper(localName = "retrieveProductResponse", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveProductResponse")
     @Action(input = "http://marketplace/Marketplace/retrieveProductRequest", output = "http://marketplace/Marketplace/retrieveProductResponse")
     public List<Product> retrieveProduct(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "id", targetNamespace = "")
+        String id,
         @WebParam(name = "searchtype", targetNamespace = "")
         String searchtype,
         @WebParam(name = "value", targetNamespace = "")
         String value);
-
-    /**
-     * 
-     * @param name
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "hello", targetNamespace = "http://marketplace/", className = "marketplace.Hello")
-    @ResponseWrapper(localName = "helloResponse", targetNamespace = "http://marketplace/", className = "marketplace.HelloResponse")
-    @Action(input = "http://marketplace/Marketplace/helloRequest", output = "http://marketplace/Marketplace/helloResponse")
-    public String hello(
-        @WebParam(name = "name", targetNamespace = "")
-        String name);
 
 }

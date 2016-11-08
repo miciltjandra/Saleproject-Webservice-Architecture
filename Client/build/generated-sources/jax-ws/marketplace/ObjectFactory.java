@@ -24,9 +24,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _IOException_QNAME = new QName("http://marketplace/", "IOException");
     private final static QName _Product_QNAME = new QName("http://marketplace/", "Product");
-    private final static QName _Hello_QNAME = new QName("http://marketplace/", "hello");
-    private final static QName _HelloResponse_QNAME = new QName("http://marketplace/", "helloResponse");
+    private final static QName _CheckAccess_QNAME = new QName("http://marketplace/", "checkAccess");
+    private final static QName _CheckAccessResponse_QNAME = new QName("http://marketplace/", "checkAccessResponse");
     private final static QName _RetrieveProduct_QNAME = new QName("http://marketplace/", "retrieveProduct");
     private final static QName _RetrieveProductResponse_QNAME = new QName("http://marketplace/", "retrieveProductResponse");
 
@@ -38,6 +39,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IOException }
+     * 
+     */
+    public IOException createIOException() {
+        return new IOException();
+    }
+
+    /**
      * Create an instance of {@link Product }
      * 
      */
@@ -46,19 +55,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Hello }
+     * Create an instance of {@link CheckAccess }
      * 
      */
-    public Hello createHello() {
-        return new Hello();
+    public CheckAccess createCheckAccess() {
+        return new CheckAccess();
     }
 
     /**
-     * Create an instance of {@link HelloResponse }
+     * Create an instance of {@link CheckAccessResponse }
      * 
      */
-    public HelloResponse createHelloResponse() {
-        return new HelloResponse();
+    public CheckAccessResponse createCheckAccessResponse() {
+        return new CheckAccessResponse();
     }
 
     /**
@@ -78,6 +87,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "IOException")
+    public JAXBElement<IOException> createIOException(IOException value) {
+        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Product }{@code >}}
      * 
      */
@@ -87,21 +105,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Hello }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CheckAccess }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://marketplace/", name = "hello")
-    public JAXBElement<Hello> createHello(Hello value) {
-        return new JAXBElement<Hello>(_Hello_QNAME, Hello.class, null, value);
+    @XmlElementDecl(namespace = "http://marketplace/", name = "checkAccess")
+    public JAXBElement<CheckAccess> createCheckAccess(CheckAccess value) {
+        return new JAXBElement<CheckAccess>(_CheckAccess_QNAME, CheckAccess.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link HelloResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CheckAccessResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://marketplace/", name = "helloResponse")
-    public JAXBElement<HelloResponse> createHelloResponse(HelloResponse value) {
-        return new JAXBElement<HelloResponse>(_HelloResponse_QNAME, HelloResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://marketplace/", name = "checkAccessResponse")
+    public JAXBElement<CheckAccessResponse> createCheckAccessResponse(CheckAccessResponse value) {
+        return new JAXBElement<CheckAccessResponse>(_CheckAccessResponse_QNAME, CheckAccessResponse.class, null, value);
     }
 
     /**

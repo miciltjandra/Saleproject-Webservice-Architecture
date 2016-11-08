@@ -4,31 +4,35 @@
 <xsd:import namespace="http://marketplace/" schemaLocation="http://localhost:8081/Marketplace/Marketplace?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="checkAccess">
+<part name="parameters" element="tns:checkAccess"/>
+</message>
+<message name="checkAccessResponse">
+<part name="parameters" element="tns:checkAccessResponse"/>
+</message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
+</message>
 <message name="retrieveProduct">
 <part name="parameters" element="tns:retrieveProduct"/>
 </message>
 <message name="retrieveProductResponse">
 <part name="parameters" element="tns:retrieveProductResponse"/>
 </message>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
-</message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
 <portType name="Marketplace">
+<operation name="checkAccess">
+<input wsam:Action="http://marketplace/Marketplace/checkAccessRequest" message="tns:checkAccess"/>
+<output wsam:Action="http://marketplace/Marketplace/checkAccessResponse" message="tns:checkAccessResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://marketplace/Marketplace/checkAccess/Fault/IOException"/>
+</operation>
 <operation name="retrieveProduct">
 <input wsam:Action="http://marketplace/Marketplace/retrieveProductRequest" message="tns:retrieveProduct"/>
 <output wsam:Action="http://marketplace/Marketplace/retrieveProductResponse" message="tns:retrieveProductResponse"/>
 </operation>
-<operation name="hello">
-<input wsam:Action="http://marketplace/Marketplace/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://marketplace/Marketplace/helloResponse" message="tns:helloResponse"/>
-</operation>
 </portType>
 <binding name="MarketplacePortBinding" type="tns:Marketplace">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="retrieveProduct">
+<operation name="checkAccess">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -36,8 +40,11 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
 </operation>
-<operation name="hello">
+<operation name="retrieveProduct">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

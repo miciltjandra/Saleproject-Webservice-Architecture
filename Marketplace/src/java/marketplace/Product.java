@@ -46,8 +46,11 @@ public class Product {
     @XmlElement(name = "purchases", required=true)
     private int purchases;
     
+    @XmlElement(name = "status", required=true)
+    private String status;
+    
     public Product() {
-        
+        status = "invalid";
     }
     
     public Product(int id, String name, String desc, int like, Timestamp date, long prc, String img, int sellid, String sellname, int pur) {
@@ -61,5 +64,6 @@ public class Product {
         seller_id = sellid;
         username = sellname;
         purchases = pur;
+        status = "valid";
     }
 }

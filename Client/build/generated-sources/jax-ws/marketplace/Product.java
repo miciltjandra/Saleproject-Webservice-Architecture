@@ -29,6 +29,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="seller_id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="purchases" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -48,7 +49,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "image",
     "sellerId",
     "username",
-    "purchases"
+    "purchases",
+    "status"
 })
 public class Product {
 
@@ -70,6 +72,8 @@ public class Product {
     @XmlElement(required = true)
     protected String username;
     protected int purchases;
+    @XmlElement(required = true)
+    protected String status;
 
     /**
      * Gets the value of the productId property.
@@ -269,6 +273,30 @@ public class Product {
      */
     public void setPurchases(int value) {
         this.purchases = value;
+    }
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStatus(String value) {
+        this.status = value;
     }
 
 }
