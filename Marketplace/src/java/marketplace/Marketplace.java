@@ -130,11 +130,7 @@ public class Marketplace {
         }
         else {
             result.add(new Product());
-        }
-        
-        
-        
-            
+        }     
         return result;
     }
 

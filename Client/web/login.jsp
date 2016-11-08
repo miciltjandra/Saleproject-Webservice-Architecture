@@ -24,6 +24,6 @@
             <input type = "submit" class="submit" value = "Login">
         </form>
         <br/>
-        <div class="text clear bold">Don't have an account yet? Register <a href = "register.php" class="blue"> here </a></div>
+        <div class="text clear bold">Don't have an account yet? Register <a href = "register.jsp" class="blue"> here </a></div>
     </body>
 </html>
