@@ -5,8 +5,13 @@
  */
 package identityservice;
 
+import database.IdentityDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +41,44 @@ public class ValidateToken extends HttpServlet {
         PrintWriter out = response.getWriter();
         String token = request.getParameter("token");
         String id = request.getParameter("id");
+        String result = null;
         //out.write(token+id);
-        out.write("valid");
+        
+        IdentityDB db = new IdentityDB();
+        String query = "SELECT user_id, TIMESTAMPDIFF(MINUTE, time, NOW()) as diff\n" +
+                "FROM accesstoken\n" +
+                "WHERE token = '" + token + "'";
+        
+        try {
+            ResultSet rs = db.select(query);
+            String user_id = null;
+            int diff = 0;
+            if(rs.next()) {
+            //Retrieve by column name
+                user_id = rs.getString("user_id");
+                diff = rs.getInt("diff");
+                if (user_id.equals(id)) {
+                    if (diff <= 10) {
+                        result = "valid";
+                    }
+                    else {
+                        result = "expired";
+                    }
+                }
+                else {
+                    result = "wrong user";
+                }
+            }
+            else {
+                result = "no access token";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ValidateToken.class.getName()).log(Level.SEVERE, null, ex);
+            result = "error";
+        }
+        
+        
+        out.write(result);
     }
 
     /**

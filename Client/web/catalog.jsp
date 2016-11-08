@@ -31,8 +31,10 @@
                         marketplace.Marketplace_Service service = new marketplace.Marketplace_Service();
                         marketplace.Marketplace port = service.getMarketplacePort();
                         // TODO initialize WS operation arguments here
-                        java.lang.String token = "";
-                        java.lang.String id = "";
+                        java.lang.String token = "asdfasdfgh";
+                        java.lang.String id = "1";
+                        
+                        //get cookie
                          
                         java.lang.String searchtype = "";
                         java.lang.String value = "";
