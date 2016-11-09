@@ -34,6 +34,20 @@
                         java.lang.String token = "asdfasdfgh";
                         java.lang.String id = "1";
                         
+                        Cookie[] cookies = request.getCookies();
+                        if (cookies != null) {
+                            for (Cookie cookie : cookies) {
+                                if (cookie.getName().equals("sptoken")) {
+                                    token = cookie.getValue();
+                                    out.println(token);
+                                }
+                                if (cookie.getName().equals("spuser")) {
+                                    id = cookie.getValue();
+                                    out.println(id);
+                                }
+                             }
+                        }
+                        
                         //get cookie
                          
                         java.lang.String searchtype = "";
@@ -48,7 +62,7 @@
                         // TODO process result here
                         java.util.List<marketplace.Product> result = port.retrieveProduct(token, id, searchtype, value);
                         if (result.get(0).getStatus().equals("invalid")) {
-                            response.sendRedirect("login.jsp");
+                            //response.sendRedirect("login.jsp");
                         }
                         else {
                             for (marketplace.Product product : result) {

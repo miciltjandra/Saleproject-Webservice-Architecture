@@ -31,7 +31,7 @@ public interface Marketplace {
      * @param id
      * @param token
      * @return
-     *     returns java.lang.String
+     *     returns boolean
      * @throws IOException_Exception
      */
     @WebMethod
@@ -41,7 +41,7 @@ public interface Marketplace {
     @Action(input = "http://marketplace/Marketplace/checkAccessRequest", output = "http://marketplace/Marketplace/checkAccessResponse", fault = {
         @FaultAction(className = IOException_Exception.class, value = "http://marketplace/Marketplace/checkAccess/Fault/IOException")
     })
-    public String checkAccess(
+    public boolean checkAccess(
         @WebParam(name = "token", targetNamespace = "")
         String token,
         @WebParam(name = "id", targetNamespace = "")

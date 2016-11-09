@@ -5,8 +5,10 @@
  */
 package token;
 
+import database.IdentityDB;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.sql.SQLException;
 
 /**
  *
@@ -21,14 +23,14 @@ public class Token {
         SecureRandom random = new SecureRandom();
         String token = new BigInteger(50, random).toString(32);
         
-        /*IdentityDB db = new IdentityDB();
+        IdentityDB db = new IdentityDB();
         String sql = "INSERT INTO accesstoken VALUES('"+token+"', now(),'"+user_id+"')";
         try{
             db.update(sql);
         }
         catch(SQLException e) {
             
-        }*/
+        }   
         
         return token;
     }
