@@ -13,6 +13,7 @@
 		<script src="catalogscript.js"></script>
 	</head>
         <jsp:include page="header.html"/>
+        <jsp:include page="menubar.jsp"/>
 	<body class="middle">		
             
             <h1> What are you going to buy today? </h1>
@@ -62,7 +63,7 @@
                         // TODO process result here
                         java.util.List<marketplace.Product> result = port.retrieveProduct(token, id, searchtype, value);
                         if (result.get(0).getStatus().equals("invalid")) {
-                            //response.sendRedirect("login.jsp");
+                            response.sendRedirect("login.jsp");
                         }
                         else {
                             for (marketplace.Product product : result) {
