@@ -25,11 +25,11 @@
 </div>
 <ul id="tab">
 <% String now = request.getServletPath(); %>
-<li><a href="catalog.php"       <% if(now.equals("/catalog.jsp")) {out.println("class=\"active\"");}%> >Catalog</a></li>
-<li><a href="yourproducts.php" 	 	>Your Products</a></li>
-<li><a href="addproduct.php" 	 	>Add Product</a></li>
-<li><a href="sales.php" 		>Sales</a></li>
-<li><a href="purchases.php" 		>Purchases</a></li>
+<li><a href="catalog.jsp"       <% if(now.equals("/catalog.jsp")) {out.println("class=\"active\"");}%>  >Catalog</a></li>
+<li><a href="yourproducts.jsp"  <% if(now.equals("/yourproducts.jsp")) {out.println("class=\"active\"");}%>  >Your Products</a></li>
+<li><a href="addproduct.jsp" 	<% if(now.equals("/addproduct.jsp")) {out.println("class=\"active\"");}%>  >Add Product</a></li>
+<li><a href="sales.jsp" 	<% if(now.equals("/sales.jsp")) {out.println("class=\"active\"");}%>	>Sales</a></li>
+<li><a href="purchases.jsp" 	<% if(now.equals("/purchases.jsp")) {out.println("class=\"active\"");}%>	>Purchases</a></li>
 </ul>
 <br />
 <br />
