@@ -73,4 +73,40 @@ public interface Marketplace {
         @WebParam(name = "value", targetNamespace = "")
         String value);
 
+    /**
+     * 
+     * @param productid
+     * @param userid
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "increaseLike", targetNamespace = "http://marketplace/", className = "marketplace.IncreaseLike")
+    @ResponseWrapper(localName = "increaseLikeResponse", targetNamespace = "http://marketplace/", className = "marketplace.IncreaseLikeResponse")
+    @Action(input = "http://marketplace/Marketplace/increaseLikeRequest", output = "http://marketplace/Marketplace/increaseLikeResponse")
+    public String increaseLike(
+        @WebParam(name = "userid", targetNamespace = "")
+        String userid,
+        @WebParam(name = "productid", targetNamespace = "")
+        String productid);
+
+    /**
+     * 
+     * @param productid
+     * @param userid
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getLiked", targetNamespace = "http://marketplace/", className = "marketplace.GetLiked")
+    @ResponseWrapper(localName = "getLikedResponse", targetNamespace = "http://marketplace/", className = "marketplace.GetLikedResponse")
+    @Action(input = "http://marketplace/Marketplace/getLikedRequest", output = "http://marketplace/Marketplace/getLikedResponse")
+    public String getLiked(
+        @WebParam(name = "userid", targetNamespace = "")
+        String userid,
+        @WebParam(name = "productid", targetNamespace = "")
+        String productid);
+
 }

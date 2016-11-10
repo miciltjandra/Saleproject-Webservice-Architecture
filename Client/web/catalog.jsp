@@ -10,7 +10,7 @@
 	<head>
 		<title> Catalog </title>
 		<link rel="stylesheet" href="style.css">
-		<script src="catalogscript.js"></script>
+		<script src="Javascripts/catalogscript.js"></script>
 	</head>
         <jsp:include page="header.html"/>
         <jsp:include page="menubar.jsp"/>
@@ -84,9 +84,11 @@
                                 out.println(product.getPurchases() + " purchases<br/><br/>");
 
                                 //getliked!!
-
-                                out.print("<a class=\"likebut\" id=\"" + product.getProductId() + "_likebut\" ");
-                                out.println("> LIKE </a>");
+                                String like = port.getLiked(id,Integer.toString(product.getProductId()));
+                                out.print("<a class=\"likebut");
+                                if (like.equals("LIKED")) {out.print(" liked");}
+                                out.print("\" id=\"" + product.getProductId() + "_likebut\" ");
+                                out.println(" onclick=\"increaseLike("+product.getProductId()+","+id+")\">"+like+"</a>");
 
                                 //onclick increase like!!
 

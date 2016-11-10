@@ -28,6 +28,10 @@ public class ObjectFactory {
     private final static QName _Product_QNAME = new QName("http://marketplace/", "Product");
     private final static QName _CheckAccess_QNAME = new QName("http://marketplace/", "checkAccess");
     private final static QName _CheckAccessResponse_QNAME = new QName("http://marketplace/", "checkAccessResponse");
+    private final static QName _GetLiked_QNAME = new QName("http://marketplace/", "getLiked");
+    private final static QName _GetLikedResponse_QNAME = new QName("http://marketplace/", "getLikedResponse");
+    private final static QName _IncreaseLike_QNAME = new QName("http://marketplace/", "increaseLike");
+    private final static QName _IncreaseLikeResponse_QNAME = new QName("http://marketplace/", "increaseLikeResponse");
     private final static QName _RetrieveProduct_QNAME = new QName("http://marketplace/", "retrieveProduct");
     private final static QName _RetrieveProductResponse_QNAME = new QName("http://marketplace/", "retrieveProductResponse");
 
@@ -68,6 +72,38 @@ public class ObjectFactory {
      */
     public CheckAccessResponse createCheckAccessResponse() {
         return new CheckAccessResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetLiked }
+     * 
+     */
+    public GetLiked createGetLiked() {
+        return new GetLiked();
+    }
+
+    /**
+     * Create an instance of {@link GetLikedResponse }
+     * 
+     */
+    public GetLikedResponse createGetLikedResponse() {
+        return new GetLikedResponse();
+    }
+
+    /**
+     * Create an instance of {@link IncreaseLike }
+     * 
+     */
+    public IncreaseLike createIncreaseLike() {
+        return new IncreaseLike();
+    }
+
+    /**
+     * Create an instance of {@link IncreaseLikeResponse }
+     * 
+     */
+    public IncreaseLikeResponse createIncreaseLikeResponse() {
+        return new IncreaseLikeResponse();
     }
 
     /**
@@ -120,6 +156,42 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://marketplace/", name = "checkAccessResponse")
     public JAXBElement<CheckAccessResponse> createCheckAccessResponse(CheckAccessResponse value) {
         return new JAXBElement<CheckAccessResponse>(_CheckAccessResponse_QNAME, CheckAccessResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetLiked }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "getLiked")
+    public JAXBElement<GetLiked> createGetLiked(GetLiked value) {
+        return new JAXBElement<GetLiked>(_GetLiked_QNAME, GetLiked.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetLikedResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "getLikedResponse")
+    public JAXBElement<GetLikedResponse> createGetLikedResponse(GetLikedResponse value) {
+        return new JAXBElement<GetLikedResponse>(_GetLikedResponse_QNAME, GetLikedResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IncreaseLike }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "increaseLike")
+    public JAXBElement<IncreaseLike> createIncreaseLike(IncreaseLike value) {
+        return new JAXBElement<IncreaseLike>(_IncreaseLike_QNAME, IncreaseLike.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IncreaseLikeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "increaseLikeResponse")
+    public JAXBElement<IncreaseLikeResponse> createIncreaseLikeResponse(IncreaseLikeResponse value) {
+        return new JAXBElement<IncreaseLikeResponse>(_IncreaseLikeResponse_QNAME, IncreaseLikeResponse.class, null, value);
     }
 
     /**

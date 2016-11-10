@@ -134,6 +134,42 @@ public class Marketplace {
         return result;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "increaseLike")
+    public String increaseLike(@WebParam(name = "userid") String userid, @WebParam(name = "productid") String productid) {
+        //TODO write your implementation code here:
+        String like = getLiked(userid,productid);
+        //return userid+"hahaa"+productid;
+        return like;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getLiked")
+    public String getLiked(@WebParam(name = "userid") String userid, @WebParam(name = "productid") String productid) {
+        //TODO write your implementation code here:
+        MarketDB db = new MarketDB();
+        String query = "SELECT *\n" +
+		"FROM liked\n" +
+		"WHERE user_id=\""+ userid +"\" AND product_id=\""+ productid + "\"";
+        String like = "";
+        try {
+            ResultSet rs = db.select(query);
+            if (!rs.isBeforeFirst() ) {    
+                like = "LIKE";
+            } else {
+                like = "LIKED";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return like;
+    }
+
 
     
 }

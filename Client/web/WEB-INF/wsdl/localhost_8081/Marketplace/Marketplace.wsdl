@@ -19,6 +19,18 @@
 <message name="retrieveProductResponse">
 <part name="parameters" element="tns:retrieveProductResponse"/>
 </message>
+<message name="increaseLike">
+<part name="parameters" element="tns:increaseLike"/>
+</message>
+<message name="increaseLikeResponse">
+<part name="parameters" element="tns:increaseLikeResponse"/>
+</message>
+<message name="getLiked">
+<part name="parameters" element="tns:getLiked"/>
+</message>
+<message name="getLikedResponse">
+<part name="parameters" element="tns:getLikedResponse"/>
+</message>
 <portType name="Marketplace">
 <operation name="checkAccess">
 <input wsam:Action="http://marketplace/Marketplace/checkAccessRequest" message="tns:checkAccess"/>
@@ -28,6 +40,14 @@
 <operation name="retrieveProduct">
 <input wsam:Action="http://marketplace/Marketplace/retrieveProductRequest" message="tns:retrieveProduct"/>
 <output wsam:Action="http://marketplace/Marketplace/retrieveProductResponse" message="tns:retrieveProductResponse"/>
+</operation>
+<operation name="increaseLike">
+<input wsam:Action="http://marketplace/Marketplace/increaseLikeRequest" message="tns:increaseLike"/>
+<output wsam:Action="http://marketplace/Marketplace/increaseLikeResponse" message="tns:increaseLikeResponse"/>
+</operation>
+<operation name="getLiked">
+<input wsam:Action="http://marketplace/Marketplace/getLikedRequest" message="tns:getLiked"/>
+<output wsam:Action="http://marketplace/Marketplace/getLikedResponse" message="tns:getLikedResponse"/>
 </operation>
 </portType>
 <binding name="MarketplacePortBinding" type="tns:Marketplace">
@@ -45,6 +65,24 @@
 </fault>
 </operation>
 <operation name="retrieveProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="increaseLike">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getLiked">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
