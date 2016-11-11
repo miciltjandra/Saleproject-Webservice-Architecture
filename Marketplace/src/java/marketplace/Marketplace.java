@@ -39,7 +39,7 @@ public class Marketplace {
     public boolean checkAccess(@WebParam(name = "token") String token, @WebParam(name = "id") String id) throws IOException {
         //TODO write your implementation code here:
         String urlParameters  = "token=" + token + "&id=" + id;
-        URL url = new URL("http://localhost:8080/IdentityService/ValidateToken?" + urlParameters);
+        URL url = new URL("http://localhost:8082/IdentityService/ValidateToken?" + urlParameters);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 
