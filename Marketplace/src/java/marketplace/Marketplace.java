@@ -170,6 +170,82 @@ public class Marketplace {
         return like;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "retrieveSales")
+    @WebResult(name="Purchase")
+    public ArrayList<Purchase> retrieveSales(@WebParam(name = "token") final String token, @WebParam(name = "id") final String id, @WebParam(name = "searchtype") final String searchtype, @WebParam(name = "value") final String value) {
+        //TODO write your implementation code here:
+        ArrayList<Purchase> result = new ArrayList<Purchase>();
+        boolean valid = false;
+        
+        try {
+            valid = checkAccess(token, id);
+        } catch (IOException ex) {
+            Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (valid) {
+            try {
+                valid = checkAccess(token, id);
+            } catch (IOException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            String newval = null;
+            String statement = "";
+            if (!searchtype.equals("base")) {
+                newval = "'%" + value + "%'";
+                statement = "WHERE " + searchtype + " like " + newval + "\n";
+            }
+
+            String query = "SELECT *, \n" +
+                    "(SELECT sum(quantity) as q\n" +
+                     "FROM purchase\n" +
+                     "WHERE product_id = product_purchased) as purchases\n" +
+                    "FROM product\n" +
+                    statement +
+                    "ORDER BY added_date desc";
+
+            MarketDB db = new MarketDB();
+            String aaa = "asdf";
+            try {
+                ResultSet rs = db.select(query);
+                String asdf = "A";
+                while (rs.next()) {
+                    asdf += rs.getString("product_name");
+                    result.add(new Purchase(rs.getInt("purchase_id"),
+                                            rs.getInt("product_purchased"),
+                                            rs.getInt("quantity"),
+                                            rs.getInt("buyer_id"),
+                                            rs.getString("consignee"),
+                                            rs.getString("deliv_address"),
+                                            rs.getString("postalcode"),
+                                            rs.getString("phone"),
+                                            rs.getString("creditcard"),
+                                            rs.getString("verification"),
+                                            rs.getTimestamp("purchase_date"),
+                                            rs.getString("product_name"),
+                                            rs.getLong("price"),
+                                            rs.getString("image"),
+                                            rs.getInt("seller_id"),
+                                            rs.getString("buyer_username"),
+                                            rs.getString("seller_username")
+                                            ));
+                }
+                aaa = asdf;
+            } catch (SQLException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            result.add(new Purchase());
+        }     
+        return result;
+
+    }
+
 
     
 }
