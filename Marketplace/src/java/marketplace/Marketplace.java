@@ -142,8 +142,37 @@ public class Marketplace {
     public String increaseLike(@WebParam(name = "userid") String userid, @WebParam(name = "productid") String productid) {
         //TODO write your implementation code here:
         String like = getLiked(userid,productid);
-        //return userid+"hahaa"+productid;
-        return like;
+        String op = "";
+        String query1 = "";
+        if (like.equals("LIKE")) {
+            op = "+";
+            query1 = "INSERT INTO liked(user_id, product_id)\n"+
+            "VALUES("+userid+","+productid+")";
+        } else if (like.equals("LIKED")) {
+            op = "-";
+            query1 = "DELETE FROM liked\n"+
+            "WHERE user_id = "+userid+" AND product_id = "+productid;
+        }
+        String query2 = "UPDATE product\n"+
+	"SET likes = likes"+ op +"1\n"+
+	"WHERE product_id = " +  productid;
+        
+        String queryget = "SELECT likes FROM product WHERE product_id = " + productid;
+        MarketDB db = new MarketDB();
+        String likes = "a";
+        try {
+            db.update(query1);
+            db.update(query2);
+            ResultSet rs = db.select(queryget);
+            if(rs.next()) {
+            //Retrieve by column name
+                likes = rs.getString("likes");
+            }
+            db.closeDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return likes;
     }
 
     /**
