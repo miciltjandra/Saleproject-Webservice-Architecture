@@ -71,7 +71,8 @@ public class Logout extends HttpServlet {
         IdentityDB db = new IdentityDB();
         try{
             db.update(query);
-            response.getWriter().println("Token for user_id " + user + " deleted");            
+            response.getWriter().println("Token for user_id " + user + " deleted");
+            db.closeDB();
         }
         catch(SQLException e) {
         }   

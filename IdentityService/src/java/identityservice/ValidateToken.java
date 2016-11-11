@@ -72,6 +72,7 @@ public class ValidateToken extends HttpServlet {
             else {
                 result = "no access token";
             }
+            db.closeDB();
         } catch (SQLException ex) {
             Logger.getLogger(ValidateToken.class.getName()).log(Level.SEVERE, null, ex);
             result = "error";

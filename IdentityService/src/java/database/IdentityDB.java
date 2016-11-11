@@ -10,6 +10,7 @@ import java.sql.*;
 public class IdentityDB {
  
 	private Connection conn = null;
+        private Statement sta = null;
  
 	public IdentityDB() {
             final String url="jdbc:mysql://localhost/saleprojectaccount";
@@ -28,13 +29,22 @@ public class IdentityDB {
 	}
  
 	public ResultSet select(String sql) throws SQLException {
-            Statement sta = conn.createStatement();
+            sta = conn.createStatement();
             return sta.executeQuery(sql);
 	}
         
         public int update(String sql) throws SQLException {
-            Statement sta = conn.createStatement();
+            sta = conn.createStatement();
             return sta.executeUpdate(sql);
+        }
+        
+        public void closeDB() throws SQLException {
+            if (conn != null && !conn.isClosed()) {
+                    conn.close();
+            }
+            if (sta != null && !sta.isClosed()) {
+                    sta.close();
+            }
         }
  
 	@Override

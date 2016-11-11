@@ -90,6 +90,7 @@ public class Login extends HttpServlet {
             }
             PrintWriter out = response.getWriter();
             out.write(json.toString());
+            db.closeDB();
         }
         catch(SQLException e) {
             

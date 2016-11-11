@@ -124,6 +124,7 @@ public class Marketplace {
                                             ));
                 }
                 aaa = asdf;
+                db.closeDB();
             } catch (SQLException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -163,6 +164,7 @@ public class Marketplace {
             } else {
                 like = "LIKED";
             }
+            db.closeDB();
         } catch (SQLException ex) {
             Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
         }
