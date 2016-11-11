@@ -3,27 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package identityservice;
+package logout;
 
-import database.IdentityDB;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
-import token.Token;
+import static javax.ws.rs.core.HttpHeaders.USER_AGENT;
 
 /**
  *
- * @author Asus
+ * @author Joshua A Kosasih
  */
-@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
-public class Logout extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class Logout extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Logout</title>");            
+            out.println("<title>Servlet LogoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,20 +63,54 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String user = request.getParameter("user");
+        String user = "";
         
-        // Delete token
-        String query = "DELETE FROM accesstoken WHERE user_id = '" + user + "'";
-        IdentityDB db = new IdentityDB();
-        try{
-            db.update(query);
-            response.getWriter().println("Token for user_id " + user + " deleted");            
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("spuser")) {
+                    user = cookie.getValue();
+                }
+            }
         }
-        catch(SQLException e) {
-        }   
         
-        // Send success
-        response.setStatus(200);
+        response.getWriter().println("User " + user + " wants to logout");
+        
+        //Request to delete token in DB
+        String link = "http://localhost:8082/IdentityService/Logout?user=" + user;
+        URL url = new URL(link);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("User-Agent", USER_AGENT);
+        
+        int responseCode = connection.getResponseCode();
+        response.getWriter().println("Get response code " + responseCode);
+        
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            response.getWriter().println("Success");
+        }
+    
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        String line = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        while ((line = in.readLine()) != null)
+        {
+            stringBuilder.append(line + "\n");
+        }
+        response.getWriter().println(stringBuilder.toString());
+   
+        //Clear cookies
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+        
+        //Redirect to login page
+        response.sendRedirect("login.jsp");
     }
 
     /**

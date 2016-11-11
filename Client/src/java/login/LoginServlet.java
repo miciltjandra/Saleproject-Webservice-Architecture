@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         // create the HttpURLConnection
-        URL url = new URL("http://localhost:8080/IdentityService/Login");
+        URL url = new URL("http://localhost:8082/IdentityService/Login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         
         String urlParameters  = "user=" + request.getParameter("user")

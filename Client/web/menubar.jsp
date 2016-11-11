@@ -13,7 +13,7 @@
             if (cookie.getName().equals("spusername")) {
                 user = cookie.getValue();
             }
-         }
+        }
     }
 %>
 <div class="middle fix">
@@ -21,7 +21,7 @@
 		<%= user %>
 	</span></div>
 	
-	<div id="logout"><a class="maroon" href="index.php">logout</a></div><br>
+	<div id="logout"><a class="maroon" href="/Client/LogoutServlet">logout</a></div><br>
 </div>
 <ul id="tab">
 <% String now = request.getServletPath(); %>
