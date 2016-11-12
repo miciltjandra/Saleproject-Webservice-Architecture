@@ -492,4 +492,13 @@ public class Marketplace {
         
         return result;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "confirmPurchase")
+    public Boolean confirmPurchase() {
+        //TODO write your implementation code here:
+        return null;
+    }
 }
