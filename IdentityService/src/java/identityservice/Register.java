@@ -5,13 +5,18 @@
  */
 package identityservice;
 
+import database.IdentityDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
+import token.Token;
 
 /**
  *
@@ -72,7 +77,63 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String fullname= request.getParameter("fullname");
+        String user= request.getParameter("user");
+        String email=request.getParameter("email");
+        String pass=request.getParameter("pass");
+        String conpass=request.getParameter("conpass");
+        String add=request.getParameter("add");
+        String postal=request.getParameter("postal");
+        String phone=request.getParameter("phone");
+        
+        
+        JSONObject json = new JSONObject();
+        String query = "INSERT INTO user (username, email, password, fullname, address, postalcode, phonenumber) VALUES ('"+ user +"','"+ email +"','"+ pass +"','"+fullname+"','"+add+"','"+postal+"','"+phone+"')";
+        String queryread = "SELECT user_id, password, username FROM user WHERE username = '" + user + "'";
+        String vquery1 = "SELECT username FROM user WHERE username = '" + user + "'";
+        String vquery2 = "SELECT email FROM user WHERE email = '" + email + "'";
+        
+        IdentityDB db = new IdentityDB();
+        try{
+            ResultSet validate1 = db.select(vquery1);
+            ResultSet validate2 = db.select(vquery2);
+            if(validate1.next() && validate2.next()){
+                json.put("status", "error");
+            } else if (!pass.equals(conpass)){
+                json.put("status", "error");
+            } else {
+                int x = db.update(query);
+                ResultSet rs = db.select(queryread);
+                String user_id = null;
+                String passw = null;
+                String username = null;
+                if(rs.next()) {
+                //Retrieve by column name
+                    user_id = rs.getString("user_id");
+                    passw = rs.getString("password");
+                    username = rs.getString("username");
+                }
+                if(pass.equals(passw)) {
+                    json.put("status", "valid");
+                    json.put("token", Token.generateToken(user_id));
+                    json.put("time", "30");
+                    json.put("user_id", user_id);
+                    json.put("username", username);
+                } else {
+                    json.put("status", "error");
+                }
+            }
+                             
+            PrintWriter out = response.getWriter();
+            out.write(json.toString());
+            db.closeDB();
+        }
+        catch(SQLException e) {
+            
+        }  
+        
+        
     }
 
     /**
