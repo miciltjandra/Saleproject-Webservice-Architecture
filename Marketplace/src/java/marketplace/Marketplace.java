@@ -204,11 +204,6 @@ public class Marketplace {
 
     /**
      * Web service operation
-     * @param token
-     * @param id
-     * @param searchtype
-     * @param value
-     * @return 
      */
     @WebMethod(operationName = "retrieveSales")
     @WebResult(name="Purchase")
@@ -230,13 +225,7 @@ public class Marketplace {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            String newval = null;
-            String statement = "";
-            if (!searchtype.equals("base")) {
-                newval = "'%" + value + "%'";
-                statement = "WHERE " + searchtype + " like " + newval + "\n";
-            }
-
+/*
             String query = "SELECT *, \n" +
                     "(SELECT sum(quantity) as q\n" +
                      "FROM purchase\n" +
@@ -244,7 +233,11 @@ public class Marketplace {
                     "FROM product\n" +
                     statement +
                     "ORDER BY added_date desc";
+*/
 
+            String query = "SELECT * FROM purchase WHERE " + searchtype + " = " + id + " ORDER BY purchase_date desc ";
+            
+            
             MarketDB db = new MarketDB();
             String aaa = "asdf";
             try {

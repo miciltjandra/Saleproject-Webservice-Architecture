@@ -42,7 +42,7 @@
                 // TODO handle custom exceptions here
             }
         %>
-        <form action = "RegisterServlet" method = "post" id = "loginform"  class="text">
+        <form action = "RegisterServlet" method = "post" id = "registerform"  class="text">
             <legend class="text large"> Register </legend>
             <hr>
             Full Name <br/>

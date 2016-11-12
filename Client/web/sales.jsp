@@ -38,37 +38,27 @@
                         }
                     }
                 }
-
-                //get cookie
-                java.lang.String searchtype = "";
-                java.lang.String value = "";
-                if (request.getParameter("submit_search") != null) {
-                    searchtype = request.getParameter("searchcategory");
-                    value = request.getParameter("search");
-                } else {
-                    searchtype = "base";
-                }
+                
+                java.lang.String searchtype = "seller_id";
+                java.lang.String value = "dummy";
 
                 // TODO process result here
-                java.util.List<marketplace.Product> result = port.retrieveProduct(token, id, searchtype, value);
+                java.util.List<marketplace.Purchase> result = port.retrieveSales(token, id, searchtype, value);
                 if (result.get(0).getStatus().equals("invalid")) {
                     response.sendRedirect("login.jsp");
                 } else {
-                    for (marketplace.Product product : result) {
+                    for (marketplace.Purchase purchase : result) {
                         out.println("<div class=\"product\">");
-                        out.println("<div class=\"bold\">" + product.getAddedDate() + "</div>");
+                        out.println("<div class=\"bold\">" + purchase.getPurchaseDate() + "</div>");
                         out.println("<hr/>");
                         out.println("<div class=\"catalogleft\">");
-                        out.println("<img class=\"icon\" src=\"" + product.getImage() + "\" alt=\"" + product.getProductName() + "\"/> <br/>");
+                        out.println("<img class=\"icon\" src=\"" + purchase.getImage() + "\" alt=\"" + purchase.getProductName() + "\"/> <br/>");
                         out.println("</div>");
                         out.println("<div class=\"catalogmid\">");
-                        out.println("<div class=\"bold\">" + product.getProductName() + "</div>");
-                        out.println("<div class=\"price\"> IDR " + product.getPrice() + "</div>");
-                        out.println("<div class=\"desc\">" + product.getDescription() + "</div>");
+                        out.println("<div class=\"bold\">" + purchase.getProductName() + "</div>");
+                        out.println("<div class=\"price\"> IDR " + purchase.getPrice() + "</div>");
                         out.println("</div>");
                         out.println("<div class=\"catalogright\">");
-                        out.println("<span id=\"" + product.getProductId() + "_like\">" + product.getLikes() + "</span> likes <br/>");
-                        out.println(product.getPurchases() + " purchases<br/><br/>");
                         out.println("</div>");
                         out.println("<div class=\"clear\">");
                         out.println("<hr/>\n<br/>");
