@@ -43,15 +43,29 @@
             }
         %>
         <form action = "LoginServlet" method = "post" id = "loginform"  class="text">
-            <legend class="text large"> Please Login </legend>
+            <legend class="text large"> Register </legend>
             <hr>
-            Email or Username <br/>
+            Full Name <br/>
+            <input type = "text" class="reg_text" name = "fullname"> <br/>
+            Username <br/>
             <input type = "text" class="reg_text" name = "user"> <br/>
-            Password <br/>
+            Email<br/>
+            <input type = "text" class="reg_text" name = "email"> <br/>
+            Password<br/>
             <input type = "password" class="reg_text" name = "pass"> <br/>
-            <input type = "submit" class="submit" value = "Login">
+            Confirm Password <br/>
+            <input type = "password" class="reg_text" name = "conpass"> <br/>
+            Full Address <br/>
+            <input type = "text" class="reg_text" name = "add"> <br/>
+            Postal Code <br/>
+            <input type = "text" class="reg_text" name = "postal"> <br/>
+            Phone Number <br/>
+            <input type = "text" class="reg_text" name = "phone"> <br/>
+            
+            
+            <input type = "submit" class="submit" value = "Register">
         </form>
         <br/>
-        <div class="text clear bold">Don't have an account yet? Register <a href = "register.jsp" class="blue"> here </a></div>
+        <div class="text clear bold">Already have an account? Login <a href = "login.jsp" class="blue"> here </a></div>
     </body>
 </html>
