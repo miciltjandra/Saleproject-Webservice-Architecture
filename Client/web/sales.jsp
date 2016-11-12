@@ -16,7 +16,6 @@
     <body class="middle">
 
         <h1> Here are your Sales </h1>
-        <hr/>
         <%-- start web service invocation --%><hr/>
         <%
             try {
@@ -57,32 +56,19 @@
                 } else {
                     for (marketplace.Product product : result) {
                         out.println("<div class=\"product\">");
-                        out.println("<div class=\"bold\">" + product.getUsername() + "</div>");
-                        out.println("<div>added this on " + product.getAddedDate() + "</div>");
+                        out.println("<div class=\"bold\">" + product.getAddedDate() + "</div>");
                         out.println("<hr/>");
                         out.println("<div class=\"catalogleft\">");
                         out.println("<img class=\"icon\" src=\"" + product.getImage() + "\" alt=\"" + product.getProductName() + "\"/> <br/>");
                         out.println("</div>");
                         out.println("<div class=\"catalogmid\">");
-                        out.println("<div class=\"name\">" + product.getProductName() + "</div>");
+                        out.println("<div class=\"bold\">" + product.getProductName() + "</div>");
                         out.println("<div class=\"price\"> IDR " + product.getPrice() + "</div>");
                         out.println("<div class=\"desc\">" + product.getDescription() + "</div>");
                         out.println("</div>");
                         out.println("<div class=\"catalogright\">");
                         out.println("<span id=\"" + product.getProductId() + "_like\">" + product.getLikes() + "</span> likes <br/>");
                         out.println(product.getPurchases() + " purchases<br/><br/>");
-
-                        //getliked!!
-                        String like = port.getLiked(id, Integer.toString(product.getProductId()));
-                        out.print("<a class=\"likebut");
-                        if (like.equals("LIKED")) {
-                            out.print(" liked");
-                        }
-                        out.print("\" id=\"" + product.getProductId() + "_likebut\" ");
-                        out.println(" onclick=\"increaseLike(" + product.getProductId() + "," + id + ")\">" + like + "</a>");
-
-                        //onclick increase like!!
-                        out.println("<a class=\"buybut\"href=\"confirm_purchase.jsp?product=" + product.getProductId() + "\"> BUY </a>");
                         out.println("</div>");
                         out.println("<div class=\"clear\">");
                         out.println("<hr/>\n<br/>");

@@ -98,7 +98,7 @@ public class Register extends HttpServlet {
         try{
             ResultSet validate1 = db.select(vquery1);
             ResultSet validate2 = db.select(vquery2);
-            if(validate1.next() && validate2.next()){
+            if(validate1.isBeforeFirst() || validate2.isBeforeFirst()){
                 json.put("status", "error");
             } else if (!pass.equals(conpass)){
                 json.put("status", "error");
