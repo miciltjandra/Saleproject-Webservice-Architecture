@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addproduct
-    Created on : Nov 11, 2016, 5:02:32 PM
+    Document   : editproduct
+    Created on : Nov 12, 2016, 5:02:32 PM
     Author     : Joshua A Kosasih
 --%>
 
@@ -8,14 +8,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Add Product </title>
+        <title> Edit Product </title>
         <link rel="stylesheet" href="style.css">
         <script type="text/javascript" src="Javascripts/addscript.js"></script>
     </head>
     <jsp:include page="header.html"/>
     <jsp:include page="menubar.jsp"/>
     <body class="middle">
-        <div class="large text"> Please add your product here </div>
+        <div class="large text"> Please edit your product here </div>
         <br /><hr /><br />
         <%-- start web service invocation --%>
         <%
@@ -49,10 +49,13 @@
             } catch (Exception ex) {
                 // TODO handle custom exceptions here
             }
+            
+            String prdid = request.getParameter("name");
+            out.println(prdid);
         %>
         <%-- end web service invocation --%>
 
-        <form onsubmit="return validateAdd()" class="text" action="AddServlet" method="post" id="addform" >
+        <form onsubmit="return validateAdd()" class="text" action="EditServlet" method="post" id="addform" >
             Name <br />
             <input id="add_name" class="reg_text" type="text" name="name" oninput="valNotEmpty(this.value, 'add_name')" required maxlength="100"/>
             <br />
@@ -63,10 +66,10 @@
             <input id="add_price" class="reg_text" type="number" name="price" oninput="valNumber(this.value, 'add_price', 15, 1)" required maxlength="15" min="0" max="999999999999999"/> 
             <br />
             Photo <br />
-            <input type="file" name="imagefile" accept="image/*"  /> 
+            <input type="file" name="imagefile" accept="image/*" disabled /> 
             <br />
             <input class="submit" type="button" value="Cancel" name="cancelbtn" onclick="window.location.reload(false)" />
-            <input class="submit" type="submit" value="Add" name="addbtn" />
+            <input class="submit" type="submit" value="Update" name="updatebtn" />
         </form>
         <br class="breaker"/>
     </body>

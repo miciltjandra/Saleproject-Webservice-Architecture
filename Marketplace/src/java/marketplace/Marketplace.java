@@ -299,6 +299,7 @@ public class Marketplace {
             Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        boolean result = false;
         if (valid) {
             try {
                 valid = checkAccess(token, id);
@@ -316,7 +317,7 @@ public class Marketplace {
             prdname + "', '" +
             desc + "', '" +
             date + "', '" +
-            price + "', '" +            
+            price + "', '" +
             id + "', '" +
             username + "')";
             
@@ -325,16 +326,14 @@ public class Marketplace {
             try {
                 int rs = db.update(query);
                 db.closeDB();
-                if (rs < 0) {
-                    return false;
-                } else {
-                    return true;
-                }             
+                if (rs >= 0) {
+                    result = true;
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
-        return false;
+        return result;
     } 
 }
