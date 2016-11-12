@@ -204,6 +204,11 @@ public class Marketplace {
 
     /**
      * Web service operation
+     * @param token
+     * @param id
+     * @param searchtype
+     * @param value
+     * @return 
      */
     @WebMethod(operationName = "retrieveSales")
     @WebResult(name="Purchase")
@@ -431,6 +436,53 @@ public class Marketplace {
             "'\n, description='" + desc +           
             "'\n, price='" + price +
             "'\n WHERE product_id=" + prdid + ";";    
+            
+            MarketDB db = new MarketDB();
+            
+            try {
+                int rs = db.update(query);
+                db.closeDB();
+                if (rs >= 0) {
+                    result = true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Web service operation
+     * @param token
+     * @param id
+     * @param prdid
+     * @return 
+     */
+    @WebMethod(operationName = "deleteProduct")
+    public boolean deleteProduct(@WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "prdid") String prdid) {
+        //TODO write your implementation code here:
+        //TODO write your implementation code here:
+        boolean valid = false;
+        
+        try {
+            valid = checkAccess(token, id);
+        } catch (IOException ex) {
+            Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        boolean result = false;
+        if (valid) {
+            try {
+                valid = checkAccess(token, id);
+            } catch (IOException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            // Sementara image blom dimasukkan, harusnya ada setelah price
+            String query = "DELETE FROM product " +                                
+            "\n WHERE product_id=" + prdid + ";";
             
             MarketDB db = new MarketDB();
             

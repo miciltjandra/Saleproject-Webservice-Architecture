@@ -81,7 +81,7 @@
 
                         //delete
 
-                        out.println("<a class=\"delbut\"href=\"confirm_purchase.jsp?product="+product.getProductId()+"\"> DELETE </a>");
+                        out.println("<a class=\"delbut\"href=\"/Client/DeleteServlet?id="+product.getProductId()+"\"> DELETE </a>");
                         out.println("</div>");
                         out.println("<div class=\"clear\">");
                         out.println("<hr/>\n<br/>");
