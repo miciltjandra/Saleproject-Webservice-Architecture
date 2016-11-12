@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebResult;
@@ -277,6 +278,55 @@ public class Marketplace {
 
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "addProduct")
+    public boolean addProduct(@WebParam(name = "prdname") String prdname, @WebParam(name = "desc") String desc, @WebParam(name = "price") String price, @WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "username") String username, @WebParam(name = "image") Object image) {
+        boolean valid = false;
+        
+        try {
+            valid = checkAccess(token, id);
+        } catch (IOException ex) {
+            Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //if (valid) {
+            try {
+                valid = checkAccess(token, id);
+            } catch (IOException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-    
+            // get date
+            java.util.Date utilDate = new Date();          
+            java.sql.Date date = new java.sql.Date(utilDate.getTime());
+            
+            // Sementara image blom dimasukkan, harusnya ada setelah price
+            String query = "INSERT INTO product(product_name, description, added_date, price, seller_id, username)" +
+            "VALUES('" +
+            prdname + "', '" +
+            desc + "', '" +
+            date + "', '" +
+            price + "', '" +            
+            id + "', '" +
+            username + "')";
+            
+            MarketDB db = new MarketDB();
+            
+            try {
+                int rs = db.update(query);
+                db.closeDB();
+                if (rs < 0) {
+                    return false;
+                } else {
+                    return true;
+                }             
+            } catch (SQLException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        //}
+        
+        return false;
+    } 
 }
