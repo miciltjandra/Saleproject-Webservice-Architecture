@@ -27,6 +27,7 @@ public class Token {
         String sql = "INSERT INTO accesstoken VALUES('"+token+"', now(),'"+user_id+"')";
         try{
             db.update(sql);
+            db.closeDB();
         }
         catch(SQLException e) {
             

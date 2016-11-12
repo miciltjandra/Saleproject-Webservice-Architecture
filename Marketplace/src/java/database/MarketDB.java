@@ -13,6 +13,7 @@ import java.sql.*;
  */
 public class MarketDB {
     private Connection conn = null;
+    private Statement sta = null;
  
     public MarketDB() {
         final String url="jdbc:mysql://localhost/saleprojectmarket";
@@ -31,14 +32,23 @@ public class MarketDB {
     }
 
     public ResultSet select(String sql) throws SQLException {
-        Statement sta = conn.createStatement();
+        sta = conn.createStatement();
         return sta.executeQuery(sql);
     }
 
     public int update(String sql) throws SQLException {
-        Statement sta = conn.createStatement();
+        sta = conn.createStatement();
         return sta.executeUpdate(sql);
     }
+    
+    public void closeDB() throws SQLException {
+            if (conn != null && !conn.isClosed()) {
+                    conn.close();
+            }
+            if (sta != null && !sta.isClosed()) {
+                    sta.close();
+            }
+        }
 
     @Override
     protected void finalize() throws Throwable {
