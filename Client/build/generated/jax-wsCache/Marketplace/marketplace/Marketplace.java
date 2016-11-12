@@ -51,19 +51,52 @@ public interface Marketplace {
 
     /**
      * 
+     * @param image
+     * @param price
+     * @param prdname
+     * @param id
+     * @param desc
+     * @param token
+     * @param username
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addProduct", targetNamespace = "http://marketplace/", className = "marketplace.AddProduct")
+    @ResponseWrapper(localName = "addProductResponse", targetNamespace = "http://marketplace/", className = "marketplace.AddProductResponse")
+    @Action(input = "http://marketplace/Marketplace/addProductRequest", output = "http://marketplace/Marketplace/addProductResponse")
+    public boolean addProduct(
+        @WebParam(name = "prdname", targetNamespace = "")
+        String prdname,
+        @WebParam(name = "desc", targetNamespace = "")
+        String desc,
+        @WebParam(name = "price", targetNamespace = "")
+        String price,
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "id", targetNamespace = "")
+        String id,
+        @WebParam(name = "username", targetNamespace = "")
+        String username,
+        @WebParam(name = "image", targetNamespace = "")
+        Object image);
+
+    /**
+     * 
      * @param searchtype
      * @param id
      * @param value
      * @param token
      * @return
-     *     returns java.util.List<marketplace.Product>
+     *     returns java.util.List<marketplace.Purchase>
      */
     @WebMethod
-    @WebResult(name = "Product", targetNamespace = "")
-    @RequestWrapper(localName = "retrieveProduct", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveProduct")
-    @ResponseWrapper(localName = "retrieveProductResponse", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveProductResponse")
-    @Action(input = "http://marketplace/Marketplace/retrieveProductRequest", output = "http://marketplace/Marketplace/retrieveProductResponse")
-    public List<Product> retrieveProduct(
+    @WebResult(name = "Purchase", targetNamespace = "")
+    @RequestWrapper(localName = "retrieveSales", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveSales")
+    @ResponseWrapper(localName = "retrieveSalesResponse", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveSalesResponse")
+    @Action(input = "http://marketplace/Marketplace/retrieveSalesRequest", output = "http://marketplace/Marketplace/retrieveSalesResponse")
+    public List<Purchase> retrieveSales(
         @WebParam(name = "token", targetNamespace = "")
         String token,
         @WebParam(name = "id", targetNamespace = "")
@@ -90,6 +123,30 @@ public interface Marketplace {
         String userid,
         @WebParam(name = "productid", targetNamespace = "")
         String productid);
+
+    /**
+     * 
+     * @param searchtype
+     * @param id
+     * @param value
+     * @param token
+     * @return
+     *     returns java.util.List<marketplace.Product>
+     */
+    @WebMethod
+    @WebResult(name = "Product", targetNamespace = "")
+    @RequestWrapper(localName = "retrieveProduct", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveProduct")
+    @ResponseWrapper(localName = "retrieveProductResponse", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveProductResponse")
+    @Action(input = "http://marketplace/Marketplace/retrieveProductRequest", output = "http://marketplace/Marketplace/retrieveProductResponse")
+    public List<Product> retrieveProduct(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "id", targetNamespace = "")
+        String id,
+        @WebParam(name = "searchtype", targetNamespace = "")
+        String searchtype,
+        @WebParam(name = "value", targetNamespace = "")
+        String value);
 
     /**
      * 

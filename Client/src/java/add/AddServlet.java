@@ -12,6 +12,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import marketplace.Marketplace_Service;
 
 /**
  *
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AddServlet extends HttpServlet {
 
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Marketplace/Marketplace.wsdl")
+    private Marketplace_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,6 +77,7 @@ public class AddServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String user = "";
+        String token = "";
         String username = "";
         
         Cookie[] cookies = request.getCookies();
@@ -80,6 +85,9 @@ public class AddServlet extends HttpServlet {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("spuser")) {
                     user = cookie.getValue();
+                }
+                if (cookie.getName().equals("sptoken")) {
+                    token = cookie.getValue();
                 }
                 if (cookie.getName().equals("spusername")) {
                     username = cookie.getValue();
@@ -90,7 +98,16 @@ public class AddServlet extends HttpServlet {
         String nameprod = request.getParameter("name");
         String desc = request.getParameter("desc");
         String price = request.getParameter("price");
-        response.getWriter().println(username + " wants to add " + nameprod);
+        Object image = request.getParameter("image");
+        response.getWriter().println(username + " with token " + token + " wants to add " + nameprod);
+        
+        marketplace.Marketplace port = service.getMarketplacePort();                        
+                      
+        if(port.addProduct(nameprod, desc, price, token, user, username, image)){
+            response.sendRedirect("yourproducts.jsp");
+        } else {
+            response.getWriter().println("Sorry your request cannot be processed");
+        }
     }
 
     /**

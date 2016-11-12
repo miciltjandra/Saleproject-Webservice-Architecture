@@ -26,6 +26,9 @@ public class ObjectFactory {
 
     private final static QName _IOException_QNAME = new QName("http://marketplace/", "IOException");
     private final static QName _Product_QNAME = new QName("http://marketplace/", "Product");
+    private final static QName _Purchase_QNAME = new QName("http://marketplace/", "Purchase");
+    private final static QName _AddProduct_QNAME = new QName("http://marketplace/", "addProduct");
+    private final static QName _AddProductResponse_QNAME = new QName("http://marketplace/", "addProductResponse");
     private final static QName _CheckAccess_QNAME = new QName("http://marketplace/", "checkAccess");
     private final static QName _CheckAccessResponse_QNAME = new QName("http://marketplace/", "checkAccessResponse");
     private final static QName _GetLiked_QNAME = new QName("http://marketplace/", "getLiked");
@@ -34,6 +37,8 @@ public class ObjectFactory {
     private final static QName _IncreaseLikeResponse_QNAME = new QName("http://marketplace/", "increaseLikeResponse");
     private final static QName _RetrieveProduct_QNAME = new QName("http://marketplace/", "retrieveProduct");
     private final static QName _RetrieveProductResponse_QNAME = new QName("http://marketplace/", "retrieveProductResponse");
+    private final static QName _RetrieveSales_QNAME = new QName("http://marketplace/", "retrieveSales");
+    private final static QName _RetrieveSalesResponse_QNAME = new QName("http://marketplace/", "retrieveSalesResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: marketplace
@@ -56,6 +61,30 @@ public class ObjectFactory {
      */
     public Product createProduct() {
         return new Product();
+    }
+
+    /**
+     * Create an instance of {@link Purchase }
+     * 
+     */
+    public Purchase createPurchase() {
+        return new Purchase();
+    }
+
+    /**
+     * Create an instance of {@link AddProduct }
+     * 
+     */
+    public AddProduct createAddProduct() {
+        return new AddProduct();
+    }
+
+    /**
+     * Create an instance of {@link AddProductResponse }
+     * 
+     */
+    public AddProductResponse createAddProductResponse() {
+        return new AddProductResponse();
     }
 
     /**
@@ -123,6 +152,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RetrieveSales }
+     * 
+     */
+    public RetrieveSales createRetrieveSales() {
+        return new RetrieveSales();
+    }
+
+    /**
+     * Create an instance of {@link RetrieveSalesResponse }
+     * 
+     */
+    public RetrieveSalesResponse createRetrieveSalesResponse() {
+        return new RetrieveSalesResponse();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
      * 
      */
@@ -138,6 +183,33 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://marketplace/", name = "Product")
     public JAXBElement<Product> createProduct(Product value) {
         return new JAXBElement<Product>(_Product_QNAME, Product.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Purchase }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "Purchase")
+    public JAXBElement<Purchase> createPurchase(Purchase value) {
+        return new JAXBElement<Purchase>(_Purchase_QNAME, Purchase.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AddProduct }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "addProduct")
+    public JAXBElement<AddProduct> createAddProduct(AddProduct value) {
+        return new JAXBElement<AddProduct>(_AddProduct_QNAME, AddProduct.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AddProductResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "addProductResponse")
+    public JAXBElement<AddProductResponse> createAddProductResponse(AddProductResponse value) {
+        return new JAXBElement<AddProductResponse>(_AddProductResponse_QNAME, AddProductResponse.class, null, value);
     }
 
     /**
@@ -210,6 +282,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://marketplace/", name = "retrieveProductResponse")
     public JAXBElement<RetrieveProductResponse> createRetrieveProductResponse(RetrieveProductResponse value) {
         return new JAXBElement<RetrieveProductResponse>(_RetrieveProductResponse_QNAME, RetrieveProductResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrieveSales }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "retrieveSales")
+    public JAXBElement<RetrieveSales> createRetrieveSales(RetrieveSales value) {
+        return new JAXBElement<RetrieveSales>(_RetrieveSales_QNAME, RetrieveSales.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrieveSalesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "retrieveSalesResponse")
+    public JAXBElement<RetrieveSalesResponse> createRetrieveSalesResponse(RetrieveSalesResponse value) {
+        return new JAXBElement<RetrieveSalesResponse>(_RetrieveSalesResponse_QNAME, RetrieveSalesResponse.class, null, value);
     }
 
 }
