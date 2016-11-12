@@ -20,6 +20,7 @@
         <%-- start web service invocation --%>
         <%
             marketplace.Product product = new marketplace.Product();
+            String prdid = "";
             try {
                 marketplace.Marketplace_Service service = new marketplace.Marketplace_Service();
                 marketplace.Marketplace port = service.getMarketplacePort();
@@ -46,20 +47,18 @@
                 if (!result) {
                     response.sendRedirect("login.jsp");
                 } else {
-                    String prdid = request.getParameter("id");                    
+                    prdid = request.getParameter("id");                    
                     product = port.retrieveId(token, id, prdid);                      
                 }
 
             } catch (Exception ex) {
                 // TODO handle custom exceptions here
             }
-            
-            
-            
         %>
         <%-- end web service invocation --%>
 
         <form onsubmit="return validateAdd()" class="text" action="EditServlet" method="post" id="addform" >
+            <input type = "hidden" name = "id" value = "<%=prdid%>" />
             Name <br />
             <input id="add_name" value="<%=product.getProductName()%>" class="reg_text" type="text" name="name" oninput="valNotEmpty(this.value, 'add_name')" required maxlength="100"/>
             <br />
@@ -72,7 +71,7 @@
             Photo <br />
             <input type="file" name="imagefile" accept="image/*" disabled /> 
             <br />
-            <input class="submit" type="button" value="Cancel" name="cancelbtn" onclick="window.location.reload(false)" />
+            <input class="submit" type="button" value="Cancel" name="cancelbtn" />
             <input class="submit" type="submit" value="Update" name="updatebtn" />
         </form>
         <br class="breaker"/>
