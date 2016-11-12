@@ -280,6 +280,14 @@ public class Marketplace {
 
     /**
      * Web service operation
+     * @param prdname
+     * @param desc
+     * @param price
+     * @param token
+     * @param id
+     * @param username
+     * @param image
+     * @return 
      */
     @WebMethod(operationName = "addProduct")
     public boolean addProduct(@WebParam(name = "prdname") String prdname, @WebParam(name = "desc") String desc, @WebParam(name = "price") String price, @WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "username") String username, @WebParam(name = "image") Object image) {
@@ -291,7 +299,7 @@ public class Marketplace {
             Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //if (valid) {
+        if (valid) {
             try {
                 valid = checkAccess(token, id);
             } catch (IOException ex) {
@@ -300,7 +308,7 @@ public class Marketplace {
 
             // get date
             java.util.Date utilDate = new Date();          
-            java.sql.Date date = new java.sql.Date(utilDate.getTime());
+            java.sql.Timestamp date = new java.sql.Timestamp(utilDate.getTime());
             
             // Sementara image blom dimasukkan, harusnya ada setelah price
             String query = "INSERT INTO product(product_name, description, added_date, price, seller_id, username)" +
@@ -325,7 +333,7 @@ public class Marketplace {
             } catch (SQLException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
-        //}
+        }
         
         return false;
     } 
