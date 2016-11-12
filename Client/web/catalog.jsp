@@ -63,7 +63,7 @@
                         // TODO process result here
                         java.util.List<marketplace.Product> result = port.retrieveProduct(token, id, searchtype, value);
                         if (result.get(0).getStatus().equals("invalid")) {
-                            response.sendRedirect("login.jsp");
+                            response.sendRedirect("/Client/LogoutServlet");
                         }
                         else {
                             for (marketplace.Product product : result) {

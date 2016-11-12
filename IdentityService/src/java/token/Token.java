@@ -9,6 +9,8 @@ import database.IdentityDB;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,7 +43,15 @@ public class Token {
     }
     
     public static void extendToken(String token) {
-        
+        IdentityDB db = new IdentityDB();
+        String query = "UPDATE accesstoken SET time = NOW()\n" +
+                        "WHERE token = \"" + token + "\"";
+        try {
+            db.update(query);
+            db.closeDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(Token.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

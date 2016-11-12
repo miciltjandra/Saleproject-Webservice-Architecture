@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import token.Token;
 /**
  *
  * @author Asus
@@ -60,6 +61,7 @@ public class ValidateToken extends HttpServlet {
                 if (user_id.equals(id)) {
                     if (diff <= 10) {
                         result = "valid";
+                        Token.extendToken(token);
                     }
                     else {
                         result = "expired";
