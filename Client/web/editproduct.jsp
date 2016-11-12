@@ -71,7 +71,7 @@
             Photo <br />
             <input type="file" name="imagefile" accept="image/*" disabled /> 
             <br />
-            <input class="submit" type="button" value="Cancel" name="cancelbtn" />
+            <input class="submit" type="button" value="Cancel" name="cancelbtn" onclick="location = 'yourproducts.jsp'"/>
             <input class="submit" type="submit" value="Update" name="updatebtn" />
         </form>
         <br class="breaker"/>
