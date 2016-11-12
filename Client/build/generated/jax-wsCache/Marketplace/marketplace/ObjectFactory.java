@@ -35,6 +35,8 @@ public class ObjectFactory {
     private final static QName _GetLikedResponse_QNAME = new QName("http://marketplace/", "getLikedResponse");
     private final static QName _IncreaseLike_QNAME = new QName("http://marketplace/", "increaseLike");
     private final static QName _IncreaseLikeResponse_QNAME = new QName("http://marketplace/", "increaseLikeResponse");
+    private final static QName _RetrieveId_QNAME = new QName("http://marketplace/", "retrieveId");
+    private final static QName _RetrieveIdResponse_QNAME = new QName("http://marketplace/", "retrieveIdResponse");
     private final static QName _RetrieveProduct_QNAME = new QName("http://marketplace/", "retrieveProduct");
     private final static QName _RetrieveProductResponse_QNAME = new QName("http://marketplace/", "retrieveProductResponse");
     private final static QName _RetrieveSales_QNAME = new QName("http://marketplace/", "retrieveSales");
@@ -133,6 +135,22 @@ public class ObjectFactory {
      */
     public IncreaseLikeResponse createIncreaseLikeResponse() {
         return new IncreaseLikeResponse();
+    }
+
+    /**
+     * Create an instance of {@link RetrieveId }
+     * 
+     */
+    public RetrieveId createRetrieveId() {
+        return new RetrieveId();
+    }
+
+    /**
+     * Create an instance of {@link RetrieveIdResponse }
+     * 
+     */
+    public RetrieveIdResponse createRetrieveIdResponse() {
+        return new RetrieveIdResponse();
     }
 
     /**
@@ -264,6 +282,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://marketplace/", name = "increaseLikeResponse")
     public JAXBElement<IncreaseLikeResponse> createIncreaseLikeResponse(IncreaseLikeResponse value) {
         return new JAXBElement<IncreaseLikeResponse>(_IncreaseLikeResponse_QNAME, IncreaseLikeResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrieveId }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "retrieveId")
+    public JAXBElement<RetrieveId> createRetrieveId(RetrieveId value) {
+        return new JAXBElement<RetrieveId>(_RetrieveId_QNAME, RetrieveId.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RetrieveIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://marketplace/", name = "retrieveIdResponse")
+    public JAXBElement<RetrieveIdResponse> createRetrieveIdResponse(RetrieveIdResponse value) {
+        return new JAXBElement<RetrieveIdResponse>(_RetrieveIdResponse_QNAME, RetrieveIdResponse.class, null, value);
     }
 
     /**

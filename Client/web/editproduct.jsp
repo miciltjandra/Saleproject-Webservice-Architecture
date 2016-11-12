@@ -19,6 +19,7 @@
         <br /><hr /><br />
         <%-- start web service invocation --%>
         <%
+            marketplace.Product product = new marketplace.Product();
             try {
                 marketplace.Marketplace_Service service = new marketplace.Marketplace_Service();
                 marketplace.Marketplace port = service.getMarketplacePort();
@@ -44,26 +45,29 @@
                 boolean result = port.checkAccess(token, id);
                 if (!result) {
                     response.sendRedirect("login.jsp");
+                } else {
+                    String prdid = request.getParameter("id");                    
+                    product = port.retrieveId(token, id, prdid);                      
                 }
 
             } catch (Exception ex) {
                 // TODO handle custom exceptions here
             }
             
-            String prdid = request.getParameter("name");
-            out.println(prdid);
+            
+            
         %>
         <%-- end web service invocation --%>
 
         <form onsubmit="return validateAdd()" class="text" action="EditServlet" method="post" id="addform" >
             Name <br />
-            <input id="add_name" class="reg_text" type="text" name="name" oninput="valNotEmpty(this.value, 'add_name')" required maxlength="100"/>
+            <input id="add_name" value="<%=product.getProductName()%>" class="reg_text" type="text" name="name" oninput="valNotEmpty(this.value, 'add_name')" required maxlength="100"/>
             <br />
             Description (max 200 chars) <br />
-            <textarea id="add_desc" class="reg_text" rows="4" form="addform" name="desc" oninput="valNotEmpty(this.value, 'add_desc')" required maxlength="200"></textarea>
+            <textarea id="add_desc" class="reg_text" rows="4" form="addform" name="desc" oninput="valNotEmpty(this.value, 'add_desc')" required maxlength="200"><%=product.getDescription()%></textarea>
             <br />
             Price (IDR) <br />
-            <input id="add_price" class="reg_text" type="number" name="price" oninput="valNumber(this.value, 'add_price', 15, 1)" required maxlength="15" min="0" max="999999999999999"/> 
+            <input id="add_price" value="<%=product.getPrice()%>" class="reg_text" type="number" name="price" oninput="valNumber(this.value, 'add_price', 15, 1)" required maxlength="15" min="0" max="999999999999999"/> 
             <br />
             Photo <br />
             <input type="file" name="imagefile" accept="image/*" disabled /> 

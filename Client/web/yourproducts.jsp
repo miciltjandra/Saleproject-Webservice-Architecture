@@ -77,7 +77,7 @@
 
                         out.print("<a class=\"editbut");                                
                         out.print("\" id=\"" + product.getProductId() + "_likebut\" ");
-                        out.println(" href=\"editproduct.jsp?name=" + product.getProductName() + "\">EDIT</a>");
+                        out.println(" href=\"editproduct.jsp?id=" + product.getProductId() + "\">EDIT</a>");
 
                         //delete
 

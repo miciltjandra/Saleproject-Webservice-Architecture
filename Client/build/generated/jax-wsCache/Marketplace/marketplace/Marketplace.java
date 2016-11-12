@@ -166,4 +166,25 @@ public interface Marketplace {
         @WebParam(name = "productid", targetNamespace = "")
         String productid);
 
+    /**
+     * 
+     * @param id
+     * @param idproduk
+     * @param token
+     * @return
+     *     returns marketplace.Product
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "retrieveId", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveId")
+    @ResponseWrapper(localName = "retrieveIdResponse", targetNamespace = "http://marketplace/", className = "marketplace.RetrieveIdResponse")
+    @Action(input = "http://marketplace/Marketplace/retrieveIdRequest", output = "http://marketplace/Marketplace/retrieveIdResponse")
+    public Product retrieveId(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "id", targetNamespace = "")
+        String id,
+        @WebParam(name = "idproduk", targetNamespace = "")
+        String idproduk);
+
 }

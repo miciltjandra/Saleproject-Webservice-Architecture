@@ -336,4 +336,63 @@ public class Marketplace {
         
         return result;
     } 
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "retrieveId")
+    public Product retrieveId(@WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "idproduk") String idproduk) {
+        Product result = new Product();
+        boolean valid = false;
+        
+        try {
+            valid = checkAccess(token, id);
+        } catch (IOException ex) {
+            Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (valid) {
+            try {
+                valid = checkAccess(token, id);
+            } catch (IOException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            String statement = "WHERE product_id = " + idproduk + "\n";
+            
+            String query = "SELECT *, \n" +
+                    "(SELECT sum(quantity) as q\n" +
+                     "FROM purchase\n" +
+                     "WHERE product_id = product_purchased) as purchases\n" +
+                    "FROM product\n" +
+                    statement +
+                    "ORDER BY added_date desc";
+
+            MarketDB db = new MarketDB();
+            String aaa = "asdf";
+            try {
+                ResultSet rs = db.select(query);
+                String asdf = "A";
+                while (rs.next()) {
+                    asdf += rs.getString("product_name");
+                    result = new Product(rs.getInt("product_id"),
+                                            rs.getString("product_name"),
+                                            rs.getString("description"),
+                                            rs.getInt("likes"),
+                                            rs.getTimestamp("added_date"),
+                                            rs.getLong("price"),
+                                            rs.getString("image"),
+                                            rs.getInt("seller_id"),
+                                            rs.getString("username"),
+                                            rs.getInt("purchases")
+                                            );
+                }
+                aaa = asdf;
+                db.closeDB();
+            } catch (SQLException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
 }
