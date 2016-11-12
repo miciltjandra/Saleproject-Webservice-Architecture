@@ -8,6 +8,7 @@ package edit;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import marketplace.Marketplace_Service;
  *
  * @author Joshua A Kosasih
  */
+@WebServlet(name = "EditServlet", urlPatterns = {"/EditServlet"})
 public class EditServlet extends HttpServlet {
     
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Marketplace/Marketplace.wsdl")
@@ -94,7 +96,7 @@ public class EditServlet extends HttpServlet {
         
         String nameprod = request.getParameter("name");
         String desc = request.getParameter("desc");
-        String price = request.getParameter("price");     
+        String price = request.getParameter("price");
         
         marketplace.Marketplace port = service.getMarketplacePort();                        
                       

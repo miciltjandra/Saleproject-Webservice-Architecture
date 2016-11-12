@@ -8,6 +8,7 @@ package add;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import marketplace.Marketplace_Service;
  *
  * @author Joshua A Kosasih
  */
+@WebServlet(name = "AddServlet", urlPatterns = {"/AddServlet"})
 public class AddServlet extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Marketplace/Marketplace.wsdl")
