@@ -4,6 +4,8 @@
     Author     : Asus
 --%>
 
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.NumberFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -77,7 +79,7 @@
                                 out.println("</div>");
                                 out.println("<div class=\"catalogmid\">");
                                 out.println("<div class=\"name\">" + product.getProductName() + "</div>");
-                                out.println("<div class=\"price\"> IDR " + product.getPrice() + "</div>");
+                                out.println("<div class=\"price\"> IDR " + NumberFormat.getNumberInstance(Locale.GERMAN).format(product.getPrice()) + "</div>");
                                 out.println("<div class=\"desc\">" + product.getDescription() + "</div>");
                                 out.println("</div>");
                                 out.println("<div class=\"catalogright\">");

@@ -4,12 +4,21 @@
     Author     : Joshua A Kosasih
 --%>
 
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
             <title> Your Products </title>
             <link rel="stylesheet" href="style.css">
+            <script>
+                function deleteP(namaP, u_id, p_id) {
+                    if (confirm("Delete product \"" + namaP + "\" from SaleProject?") == true) {
+                        window.location = "actionyproducts.php?id_active=" + u_id + "&product=" + p_id;
+                    }
+                }
+            </script>
     </head>
     <jsp:include page="header.html"/>
     <jsp:include page="menubar.jsp"/>
@@ -66,7 +75,7 @@
                         out.println("</div>");
                         out.println("<div class=\"catalogmid\">");
                         out.println("<div class=\"name\">" + product.getProductName() + "</div>");
-                        out.println("<div class=\"price\"> IDR " + product.getPrice() + "</div>");
+                        out.println("<div class=\"price\"> IDR " + NumberFormat.getNumberInstance(Locale.GERMAN).format(product.getPrice()) + "</div>");
                         out.println("<div class=\"desc\">" + product.getDescription() + "</div>");
                         out.println("</div>");
                         out.println("<div class=\"catalogright\">");
@@ -81,7 +90,7 @@
 
                         //delete
 
-                        out.println("<a class=\"delbut\"href=\"/Client/DeleteServlet?id="+product.getProductId()+"\"> DELETE </a>");
+                        out.println("<a class=\"delbut\"href=\"/Client/DeleteServlet?id="+product.getProductId()+"\" onclick=\"deleteP('"+product.getProductName()+ "',"+ id + ", " + product.getProductId() + ")\"> DELETE </a>");
                         out.println("</div>");
                         out.println("<div class=\"clear\">");
                         out.println("<hr/>\n<br/>");
