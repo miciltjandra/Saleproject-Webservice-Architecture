@@ -286,10 +286,11 @@ public class Marketplace {
      * @param id
      * @param username
      * @param image
+     * @param content
      * @return 
      */
     @WebMethod(operationName = "addProduct")
-    public boolean addProduct(@WebParam(name = "prdname") String prdname, @WebParam(name = "desc") String desc, @WebParam(name = "price") String price, @WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "username") String username, @WebParam(name = "image") Object image) {
+    public boolean addProduct(@WebParam(name = "prdname") String prdname, @WebParam(name = "desc") String desc, @WebParam(name = "price") String price, @WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "username") String username, @WebParam(name = "image") String image, @WebParam(name = "content") byte[] content) {
         boolean valid = false;
         
         try {

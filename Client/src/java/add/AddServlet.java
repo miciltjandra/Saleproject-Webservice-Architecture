@@ -5,14 +5,19 @@
  */
 package add;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.xml.ws.WebServiceRef;
 import marketplace.Marketplace_Service;
 
@@ -21,6 +26,7 @@ import marketplace.Marketplace_Service;
  * @author Joshua A Kosasih
  */
 @WebServlet(name = "AddServlet", urlPatterns = {"/AddServlet"})
+@MultipartConfig
 public class AddServlet extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Marketplace/Marketplace.wsdl")
@@ -100,12 +106,34 @@ public class AddServlet extends HttpServlet {
         String nameprod = request.getParameter("name");
         String desc = request.getParameter("desc");
         String price = request.getParameter("price");
-        Object image = request.getParameter("image");
-        response.getWriter().println(username + " with token " + token + " wants to add " + nameprod);
+        
+        Part filePart = request.getPart("image");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        InputStream fileContent = filePart.getInputStream();
+        
+        response.getWriter().println(username + " with token " + token + " wants to add " + nameprod + " with image " + fileName);
+                
+        byte[] binfile;
+        try {
+            try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+                byte[] b = new byte[4096];
+                int n = 0;
+                while ((n = fileContent.read(b)) != -1) {
+                    output.write(b, 0, n);
+                }
+                binfile = output.toByteArray();
+            }
+        } catch (IOException e) {
+            binfile = new byte[2048];
+        } finally {
+            if (fileContent != null) {               
+                fileContent.close();               
+            }
+        }
         
         marketplace.Marketplace port = service.getMarketplacePort();                        
                       
-        if(port.addProduct(nameprod, desc, price, token, user, username, image)){
+        if(port.addProduct(nameprod, desc, price, token, user, username, fileName)){
             response.sendRedirect("yourproducts.jsp");
         } else {
             response.getWriter().println("Sorry your request cannot be processed");

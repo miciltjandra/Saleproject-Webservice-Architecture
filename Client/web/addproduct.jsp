@@ -52,7 +52,7 @@
         %>
         <%-- end web service invocation --%>
 
-        <form onsubmit="return validateAdd()" class="text" action="AddServlet" method="post" id="addform" >
+        <form onsubmit="return validateAdd()" class="text" action="AddServlet" method="post" id="addform" enctype="multipart/form-data">
             Name <br />
             <input id="add_name" class="reg_text" type="text" name="name" oninput="valNotEmpty(this.value, 'add_name')" required maxlength="100"/>
             <br />
