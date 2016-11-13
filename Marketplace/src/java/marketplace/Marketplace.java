@@ -528,9 +528,9 @@ public class Marketplace {
      * @return 
      */
     @WebMethod(operationName = "confirmPurchase")
-    public boolean confirmPurchase(@WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "id_prod") String id_prod, @WebParam(name = "quantity") String quantity, @WebParam(name = "buyer_id") String buyer_id, @WebParam(name = "consignee") String consignee, @WebParam(name = "address") String address, @WebParam(name = "postal") String postal, @WebParam(name = "phone") String phone, @WebParam(name = "credit") String credit, @WebParam(name = "verif") String verif) {
+    public boolean confirmPurchase(@WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "id_prod") String id_prod, @WebParam(name = "quantity") String quantity, @WebParam(name = "buyer_id") String buyer_id, @WebParam(name = "consignee") String consignee, @WebParam(name = "address") String address, @WebParam(name = "postal") String postal, @WebParam(name = "phone") String phone, @WebParam(name = "credit") String credit, @WebParam(name = "verif") String verif, @WebParam(name = "buy_user") String buyer_user) {
         boolean valid = false;
-        
+        String a = "aaa";
         try {
             valid = checkAccess(token, id);
         } catch (IOException ex) {
@@ -544,48 +544,20 @@ public class Marketplace {
             } catch (IOException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            // get date
-            java.util.Date utilDate = new Date();          
-            java.sql.Timestamp date = new java.sql.Timestamp(utilDate.getTime());
+            result = true;
             
             MarketDB db = new MarketDB();
             
             try {
-                String b = "";
-                String c = "";
-                String d = "";
-                String e = "";
-                String f = "";
-                String g = "";
-                ResultSet a = db.select("SELECT product_name FROM product WHERE product_id = "+ id_prod);
-                while (a.next()) {
-                    b = a.getString("product_name");
-                }
-                a = db.select("SELECT price FROM product WHERE product_id = "+ id_prod);
-                while (a.next()) {
-                    c = a.getString("price");
-                }
-                a = db.select("SELECT seller_id FROM product WHERE product_id = "+ id_prod);
-                while (a.next()) {
-                    d = a.getString("seller_id");
-                }
-                a = db.select("SELECT image FROM product WHERE product_id = "+ id_prod);
-                while (a.next()) {
-                    e = a.getString("image");
-                }
-                a = db.select("SELECT username FROM user WHERE user_id = "+ buyer_id);
-                while (a.next()) {
-                    f = a.getString("username");
-                }
-                a = db.select("SELECT username FROM product WHERE product_id = "+ id_prod);
-                while (a.next()) {
-                    g = a.getString("username");
-                }
+                String queryget = "SELECT * FROM product WHERE product_id = " + id_prod;
+                a= queryget;
+                ResultSet res = db.select(queryget);
+                res.next();
                 
                 
                 
-            String query = "INSERT INTO purchase ('product_purchased', 'quantity', 'buyer_id', 'consignee', 'deliv_address', 'postalcode', 'phone', 'creditcard`, 'verification', 'purchase_date', 'product_name', 'price', 'seller_id', 'image', 'buyer_username', 'seller_username') "
+                
+            String query = "INSERT INTO purchase (product_purchased, quantity, buyer_id, consignee, deliv_address, postalcode, phone, creditcard, verification, purchase_date, product_name, price, seller_id, image, buyer_username, seller_username)\n"
                     + "VALUES ('"
                     + id_prod + "','"
                     + quantity + "','"
@@ -595,27 +567,18 @@ public class Marketplace {
                     + postal + "','"
                     + phone + "','"
                     + credit + "','"
-                    + verif + "','"
-                    + "'2016-09-01 12:12:12', "
-                    + a + "','"
-                    + b + "','"
-                    + c + "','"
-                    + d + "','"
-                    + e + "','"
-                    + f + "','"
-                    + g + "'))";
-//                    + "(SELECT product_name FROM product WHERE product_id = "+ id_prod +") , "
-//                    + "(SELECT price FROM product WHERE product_id = "+ id_prod +"), "
-//                    + "(SELECT seller_id FROM product WHERE product_id = "+ id_prod +"), "
-//                    + "(SELECT image FROM product WHERE product_id = "+ id_prod +"), "
-//                    + "(SELECT username FROM user WHERE user_id = "+ buyer_id +"), "
-//                    + "(SELECT username FROM product WHERE product_id = "+ id_prod +"))";
+                    + verif + "',"
+                    + "NOW(), '"
+                    + res.getString("product_name") + "','"
+                    + res.getString("price") + "','"
+                    + res.getString("seller_id") + "','"
+                    + res.getString("image") + "','"
+                    + buyer_user + "','"
+                    + res.getString("username") + "')";
                     
                 int rs = db.update(query);
+                a = query;
                 db.closeDB();
-                if (rs >= 0) {
-                    result = true;
-                }
             } catch (SQLException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
