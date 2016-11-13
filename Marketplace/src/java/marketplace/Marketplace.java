@@ -317,7 +317,7 @@ public class Marketplace {
             // save image locally on folder
             try {
             InputStream is = new ByteArrayInputStream(content);
-            OutputStream os = new FileOutputStream(new File("/image/" + image));
+            OutputStream os = new FileOutputStream(new File("D:\\Tubes WBD 2\\Marketplace\\web\\Image\\" + image));
                         
             int read = 0;
             byte[] bytes = new byte[1024];
@@ -338,14 +338,15 @@ public class Marketplace {
             java.sql.Timestamp date = new java.sql.Timestamp(utilDate.getTime());
             
             // Sementara image blom dimasukkan, harusnya ada setelah price
-            String query = "INSERT INTO product(product_name, description, added_date, price, seller_id, username)" +
+            String query = "INSERT INTO product(product_name, description, added_date, price, seller_id, username, image)" +
             "VALUES('" +
             prdname + "', '" +
             desc + "', '" +
             date + "', '" +
             price + "', '" +
             id + "', '" +
-            username + "')";
+            username + "', '" +
+            image + "')";
             
             MarketDB db = new MarketDB();
             

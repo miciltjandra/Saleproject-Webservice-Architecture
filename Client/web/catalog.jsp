@@ -68,6 +68,7 @@
                             response.sendRedirect("/Client/LogoutServlet");
                         }
                         else {
+                            String imgsrc = "http://localhost:8082/Marketplace/Image/";
                             for (marketplace.Product product : result) {
                                 out.println("<div class=\"product\">");
                                 out.println("<div class=\"bold\">" + product.getUsername() + "</div>");
@@ -75,7 +76,7 @@
                                 out.println(", at "+ port.formatTime(product.getAddedDate())+"</div>");
                                 out.println("<hr/>");
                                 out.println("<div class=\"catalogleft\">");
-                                out.println("<img class=\"icon\" src=\"" + product.getImage() + "\" alt=\""+ product.getProductName() +"\"/> <br/>");
+                                out.println("<img class=\"icon\" src=\"" + imgsrc + product.getImage() + "\" alt=\""+ product.getProductName() +"\"/> <br/>");
                                 out.println("</div>");
                                 out.println("<div class=\"catalogmid\">");
                                 out.println("<div class=\"name\">" + product.getProductName() + "</div>");

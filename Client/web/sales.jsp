@@ -49,13 +49,14 @@
                 if (result.get(0).getStatus().equals("invalid")) {
                     response.sendRedirect("login.jsp");
                 } else {
+                    String imgsrc = "http://localhost:8082/Marketplace/Image/";
                     for (marketplace.Purchase purchase : result) {
                         out.println("<div class=\"purchase\">");
                         out.println("<div class=\"bold\">" + port.formatDate(purchase.getPurchaseDate()) + "</div>");
                         out.println("<div>" + port.formatTime(purchase.getPurchaseDate()) + "</div>");
                         out.println("<hr/>");
                         out.println("<div class=\"left\">");
-                        out.println("<img class=\"icon\" src=\"" + purchase.getImage() + "\" alt=\"" + purchase.getProductName() + "\"/> <br/>");
+                        out.println("<img class=\"icon\" src=\"" + imgsrc + purchase.getImage() + "\" alt=\"" + purchase.getProductName() + "\"/> <br/>");
                         out.println("</div>");
                         out.println("<div class=\"mid\">");
                         out.println("<div class=\"name\">" + purchase.getProductName() + "</div>");
