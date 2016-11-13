@@ -49,7 +49,8 @@
                 } else {
                     for (marketplace.Purchase purchase : result) {
                         out.println("<div class=\"product\">");
-                        out.println("<div class=\"bold\">" + purchase.getPurchaseDate() + "</div>");
+                        out.println("<div class=\"bold\">" + port.formatDate(purchase.getPurchaseDate()) + "</div>");
+                        out.println("<div>" + port.formatTime(purchase.getPurchaseDate()) + "</div>");
                         out.println("<hr/>");
                         out.println("<div class=\"catalogleft\">");
                         out.println("<img class=\"icon\" src=\"" + purchase.getImage() + "\" alt=\"" + purchase.getProductName() + "\"/> <br/>");

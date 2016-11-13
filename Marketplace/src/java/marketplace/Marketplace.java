@@ -18,6 +18,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -575,5 +576,25 @@ public class Marketplace {
         }
         
         return result;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "formatDate")
+    public String formatDate(@WebParam(name = "time") Date time) {
+        SimpleDateFormat ft = 
+        new SimpleDateFormat ("EEEE, dd MMMM YYYY");
+        return ft.format(time);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "formatTime")
+    public String formatTime(@WebParam(name = "time") Date time) {
+        SimpleDateFormat ft = 
+        new SimpleDateFormat ("hh.mm");
+        return ft.format(time);
     }
 }

@@ -69,7 +69,8 @@
                             for (marketplace.Product product : result) {
                                 out.println("<div class=\"product\">");
                                 out.println("<div class=\"bold\">" + product.getUsername() + "</div>");
-                                out.println("<div>added this on " + product.getAddedDate() + "</div>");
+                                out.println("<div>added this on " + port.formatDate(product.getAddedDate()));
+                                out.println(", at "+ port.formatTime(product.getAddedDate())+"</div>");
                                 out.println("<hr/>");
                                 out.println("<div class=\"catalogleft\">");
                                 out.println("<img class=\"icon\" src=\"" + product.getImage() + "\" alt=\""+ product.getProductName() +"\"/> <br/>");
