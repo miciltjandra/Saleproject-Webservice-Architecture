@@ -98,19 +98,24 @@ public class ConfirmServlet extends HttpServlet {
             }
         }
         
-        String nameprod = request.getParameter("name");
-        String desc = request.getParameter("desc");
-        String price = request.getParameter("price");
-        Object image = request.getParameter("image");
-        response.getWriter().println(username + " with token " + token + " wants to add " + nameprod);
-        
+        String idprod = request.getParameter("id");
+        idprod = idprod.substring(0,idprod.length()-2);
+        String quantity = request.getParameter("quantity");
+        String buyer_id = request.getParameter("buyer_id");
+        String consignee = request.getParameter("consignee");
+        String address = request.getParameter("address");
+        String postal = request.getParameter("postal");
+        String phone = request.getParameter("phone");
+        String credit = request.getParameter("credit");
+        String verif = request.getParameter("verif");
         marketplace.Marketplace port = service.getMarketplacePort();                        
-    /*                  
-        if(port.confirmPurchase(nameprod, desc, price, token, user, username, image)){
+                      
+        if(port.confirmPurchase(token, user, idprod, quantity, buyer_id, consignee, address, postal, phone, credit, verif)){
             response.sendRedirect("purchases.jsp");
         } else {
             response.getWriter().println("Sorry your request cannot be processed");
-        } */
+            response.getWriter().println(idprod+quantity+buyer_id+consignee+address+postal+phone+credit+verif);
+        } 
     }
 
     /**

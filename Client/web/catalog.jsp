@@ -96,7 +96,7 @@
 
                                 //onclick increase like!!
 
-                                out.println("<a class=\"buybut\"href=\"confirm_purchase.jsp?product="+product.getProductId()+"\"> BUY </a>");
+                                out.println("<a class=\"buybut\"href=\"confirm_purchase.jsp?product=" + product.getProductName() + "&id=" + product.getProductId() + "\"> BUY </a>");
                                 out.println("</div>");
                                 out.println("<div class=\"clear\">");
                                 out.println("<hr/>\n<br/>");
