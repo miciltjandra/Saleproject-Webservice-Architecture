@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.ws.WebServiceRef;
+import marketplace.FileNotFoundException_Exception;
 import marketplace.Marketplace_Service;
 
 /**
@@ -107,12 +110,15 @@ public class AddServlet extends HttpServlet {
         String desc = request.getParameter("desc");
         String price = request.getParameter("price");
         
-        Part filePart = request.getPart("image");
+        
+        Part filePart = request.getPart("imagefile");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         InputStream fileContent = filePart.getInputStream();
         
         response.getWriter().println(username + " with token " + token + " wants to add " + nameprod + " with image " + fileName);
-                
+        
+        
+               
         byte[] binfile;
         try {
             try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
@@ -133,11 +139,16 @@ public class AddServlet extends HttpServlet {
         
         marketplace.Marketplace port = service.getMarketplacePort();                        
                       
-        if(port.addProduct(nameprod, desc, price, token, user, username, fileName)){
-            response.sendRedirect("yourproducts.jsp");
-        } else {
-            response.getWriter().println("Sorry your request cannot be processed");
+        try {
+            if(port.addProduct(nameprod, desc, price, token, user, username, fileName, binfile)){
+                response.sendRedirect("yourproducts.jsp");
+            } else {
+                response.getWriter().println("Sorry your request cannot be processed");
+            }
+        } catch (FileNotFoundException_Exception ex) {
+            Logger.getLogger(AddServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**

@@ -10,9 +10,15 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import database.MarketDB;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -26,6 +32,7 @@ import java.util.logging.Logger;
 import javax.jws.WebResult;
 
 import marketplace.Product;
+import sun.misc.IOUtils;
 
 /**
  *
@@ -290,7 +297,7 @@ public class Marketplace {
      * @return 
      */
     @WebMethod(operationName = "addProduct")
-    public boolean addProduct(@WebParam(name = "prdname") String prdname, @WebParam(name = "desc") String desc, @WebParam(name = "price") String price, @WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "username") String username, @WebParam(name = "image") String image, @WebParam(name = "content") byte[] content) {
+    public boolean addProduct(@WebParam(name = "prdname") String prdname, @WebParam(name = "desc") String desc, @WebParam(name = "price") String price, @WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "username") String username, @WebParam(name = "image") String image, @WebParam(name = "content") byte[] content) throws FileNotFoundException {
         boolean valid = false;
         
         try {
@@ -306,7 +313,26 @@ public class Marketplace {
             } catch (IOException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
+               
+            // save image locally on folder
+            try {
+            InputStream is = new ByteArrayInputStream(content);
+            OutputStream os = new FileOutputStream(new File("/image/" + image));
+                        
+            int read = 0;
+            byte[] bytes = new byte[1024];
 
+            while ((read = is.read(bytes)) != -1) {
+                    os.write(bytes, 0, read);
+            }
+            System.out.println("Done!");
+            
+            } catch (IOException e) {
+                
+            }
+            
+            
+            
             // get date
             java.util.Date utilDate = new Date();          
             java.sql.Timestamp date = new java.sql.Timestamp(utilDate.getTime());
