@@ -28,7 +28,7 @@
         <hr/>
 
         <br/>
-        <%-- start web service invocation --%><hr/>
+        <%-- start web service invocation --%>
         <%
             try {
                 marketplace.Marketplace_Service service = new marketplace.Marketplace_Service();
@@ -43,15 +43,12 @@
                     for (Cookie cookie : cookies) {
                         if (cookie.getName().equals("sptoken")) {
                             token = cookie.getValue();
-                            out.println(token);
                         }
                         if (cookie.getName().equals("spuser")) {
                             id = cookie.getValue();
-                            out.println(id);
                         }
                         if (cookie.getName().equals("spusername")) {
                             username = cookie.getValue();
-                            out.println(id);
                         }
                     }
                 }

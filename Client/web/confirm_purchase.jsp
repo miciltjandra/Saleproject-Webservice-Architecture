@@ -98,7 +98,6 @@
                 
             }
     %>
-    <%-- end web service invocation --%><hr/>
 
         <%-- end web service invocation --%>
         

@@ -19,11 +19,23 @@
 <message name="formatDateResponse">
 <part name="parameters" element="tns:formatDateResponse"/>
 </message>
+<message name="getLiked">
+<part name="parameters" element="tns:getLiked"/>
+</message>
+<message name="getLikedResponse">
+<part name="parameters" element="tns:getLikedResponse"/>
+</message>
 <message name="retrieveProduct">
 <part name="parameters" element="tns:retrieveProduct"/>
 </message>
 <message name="retrieveProductResponse">
 <part name="parameters" element="tns:retrieveProductResponse"/>
+</message>
+<message name="confirmPurchase">
+<part name="parameters" element="tns:confirmPurchase"/>
+</message>
+<message name="confirmPurchaseResponse">
+<part name="parameters" element="tns:confirmPurchaseResponse"/>
 </message>
 <message name="increaseLike">
 <part name="parameters" element="tns:increaseLike"/>
@@ -31,11 +43,17 @@
 <message name="increaseLikeResponse">
 <part name="parameters" element="tns:increaseLikeResponse"/>
 </message>
-<message name="getLiked">
-<part name="parameters" element="tns:getLiked"/>
+<message name="editProduct">
+<part name="parameters" element="tns:editProduct"/>
 </message>
-<message name="getLikedResponse">
-<part name="parameters" element="tns:getLikedResponse"/>
+<message name="editProductResponse">
+<part name="parameters" element="tns:editProductResponse"/>
+</message>
+<message name="formatTime">
+<part name="parameters" element="tns:formatTime"/>
+</message>
+<message name="formatTimeResponse">
+<part name="parameters" element="tns:formatTimeResponse"/>
 </message>
 <message name="retrieveSales">
 <part name="parameters" element="tns:retrieveSales"/>
@@ -58,29 +76,11 @@
 <message name="retrieveIdResponse">
 <part name="parameters" element="tns:retrieveIdResponse"/>
 </message>
-<message name="editProduct">
-<part name="parameters" element="tns:editProduct"/>
-</message>
-<message name="editProductResponse">
-<part name="parameters" element="tns:editProductResponse"/>
-</message>
 <message name="deleteProduct">
 <part name="parameters" element="tns:deleteProduct"/>
 </message>
 <message name="deleteProductResponse">
 <part name="parameters" element="tns:deleteProductResponse"/>
-</message>
-<message name="confirmPurchase">
-<part name="parameters" element="tns:confirmPurchase"/>
-</message>
-<message name="confirmPurchaseResponse">
-<part name="parameters" element="tns:confirmPurchaseResponse"/>
-</message>
-<message name="formatTime">
-<part name="parameters" element="tns:formatTime"/>
-</message>
-<message name="formatTimeResponse">
-<part name="parameters" element="tns:formatTimeResponse"/>
 </message>
 <portType name="Marketplace">
 <operation name="checkAccess">
@@ -92,17 +92,29 @@
 <input wsam:Action="http://marketplace/Marketplace/formatDateRequest" message="tns:formatDate"/>
 <output wsam:Action="http://marketplace/Marketplace/formatDateResponse" message="tns:formatDateResponse"/>
 </operation>
+<operation name="getLiked">
+<input wsam:Action="http://marketplace/Marketplace/getLikedRequest" message="tns:getLiked"/>
+<output wsam:Action="http://marketplace/Marketplace/getLikedResponse" message="tns:getLikedResponse"/>
+</operation>
 <operation name="retrieveProduct">
 <input wsam:Action="http://marketplace/Marketplace/retrieveProductRequest" message="tns:retrieveProduct"/>
 <output wsam:Action="http://marketplace/Marketplace/retrieveProductResponse" message="tns:retrieveProductResponse"/>
+</operation>
+<operation name="confirmPurchase">
+<input wsam:Action="http://marketplace/Marketplace/confirmPurchaseRequest" message="tns:confirmPurchase"/>
+<output wsam:Action="http://marketplace/Marketplace/confirmPurchaseResponse" message="tns:confirmPurchaseResponse"/>
 </operation>
 <operation name="increaseLike">
 <input wsam:Action="http://marketplace/Marketplace/increaseLikeRequest" message="tns:increaseLike"/>
 <output wsam:Action="http://marketplace/Marketplace/increaseLikeResponse" message="tns:increaseLikeResponse"/>
 </operation>
-<operation name="getLiked">
-<input wsam:Action="http://marketplace/Marketplace/getLikedRequest" message="tns:getLiked"/>
-<output wsam:Action="http://marketplace/Marketplace/getLikedResponse" message="tns:getLikedResponse"/>
+<operation name="editProduct">
+<input wsam:Action="http://marketplace/Marketplace/editProductRequest" message="tns:editProduct"/>
+<output wsam:Action="http://marketplace/Marketplace/editProductResponse" message="tns:editProductResponse"/>
+</operation>
+<operation name="formatTime">
+<input wsam:Action="http://marketplace/Marketplace/formatTimeRequest" message="tns:formatTime"/>
+<output wsam:Action="http://marketplace/Marketplace/formatTimeResponse" message="tns:formatTimeResponse"/>
 </operation>
 <operation name="retrieveSales">
 <input wsam:Action="http://marketplace/Marketplace/retrieveSalesRequest" message="tns:retrieveSales"/>
@@ -117,21 +129,9 @@
 <input wsam:Action="http://marketplace/Marketplace/retrieveIdRequest" message="tns:retrieveId"/>
 <output wsam:Action="http://marketplace/Marketplace/retrieveIdResponse" message="tns:retrieveIdResponse"/>
 </operation>
-<operation name="editProduct">
-<input wsam:Action="http://marketplace/Marketplace/editProductRequest" message="tns:editProduct"/>
-<output wsam:Action="http://marketplace/Marketplace/editProductResponse" message="tns:editProductResponse"/>
-</operation>
 <operation name="deleteProduct">
 <input wsam:Action="http://marketplace/Marketplace/deleteProductRequest" message="tns:deleteProduct"/>
 <output wsam:Action="http://marketplace/Marketplace/deleteProductResponse" message="tns:deleteProductResponse"/>
-</operation>
-<operation name="confirmPurchase">
-<input wsam:Action="http://marketplace/Marketplace/confirmPurchaseRequest" message="tns:confirmPurchase"/>
-<output wsam:Action="http://marketplace/Marketplace/confirmPurchaseResponse" message="tns:confirmPurchaseResponse"/>
-</operation>
-<operation name="formatTime">
-<input wsam:Action="http://marketplace/Marketplace/formatTimeRequest" message="tns:formatTime"/>
-<output wsam:Action="http://marketplace/Marketplace/formatTimeResponse" message="tns:formatTimeResponse"/>
 </operation>
 </portType>
 <binding name="MarketplacePortBinding" type="tns:Marketplace">
@@ -157,7 +157,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="getLiked">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="retrieveProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="confirmPurchase">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -175,7 +193,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getLiked">
+<operation name="editProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="formatTime">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -214,34 +241,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="editProduct">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="deleteProduct">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="confirmPurchase">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="formatTime">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

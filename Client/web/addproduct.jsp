@@ -15,7 +15,7 @@
     <jsp:include page="header.html"/>
     <jsp:include page="menubar.jsp"/>
     <body class="middle">
-        <div class="large text"> Please confirm your purchases </div>
+        <div class="large text"> Please add your product here </div>
         <br /><hr /><br />
         <%-- start web service invocation --%>
         <%
@@ -31,11 +31,9 @@
                     for (Cookie cookie : cookies) {
                         if (cookie.getName().equals("sptoken")) {
                             token = cookie.getValue();
-                            out.println(token);
                         }
                         if (cookie.getName().equals("spuser")) {
                             id = cookie.getValue();
-                            out.println(id);
                         }
                      }
                 }                       
