@@ -92,11 +92,6 @@ public class Marketplace {
         }
         
         if (valid) {
-            try {
-                valid = checkAccess(token, id);
-            } catch (IOException ex) {
-                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
             String newval = null;
             String statement = "";
@@ -114,12 +109,9 @@ public class Marketplace {
                     "ORDER BY added_date desc";
 
             MarketDB db = new MarketDB();
-            String aaa = "asdf";
             try {
                 ResultSet rs = db.select(query);
-                String asdf = "A";
                 while (rs.next()) {
-                    asdf += rs.getString("product_name");
                     result.add(new Product(rs.getInt("product_id"),
                                             rs.getString("product_name"),
                                             rs.getString("description"),
@@ -132,7 +124,6 @@ public class Marketplace {
                                             rs.getInt("purchases")
                                             ));
                 }
-                aaa = asdf;
                 db.closeDB();
             } catch (SQLException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,22 +218,14 @@ public class Marketplace {
         }
         
         if (valid) {
-            try {
-                valid = checkAccess(token, id);
-            } catch (IOException ex) {
-                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
             String query = "SELECT * FROM purchase WHERE " + searchtype + " = " + id + " ORDER BY purchase_date desc ";
             
             
             MarketDB db = new MarketDB();
-            String aaa = "asdf";
             try {
                 ResultSet rs = db.select(query);
-                String asdf = "A";
                 while (rs.next()) {
-                    asdf += rs.getString("product_name");
                     result.add(new Purchase(rs.getInt("purchase_id"),
                                             rs.getInt("product_purchased"),
                                             rs.getInt("quantity"),
@@ -262,7 +245,6 @@ public class Marketplace {
                                             rs.getString("seller_username")
                                             ));
                 }
-                aaa = asdf;
             } catch (SQLException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -298,11 +280,6 @@ public class Marketplace {
         
         boolean result = false;
         if (valid) {
-            try {
-                valid = checkAccess(token, id);
-            } catch (IOException ex) {
-                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
-            }
                
             // save image locally on folder
             try {
@@ -369,11 +346,6 @@ public class Marketplace {
         }
         
         if (valid) {
-            try {
-                valid = checkAccess(token, id);
-            } catch (IOException ex) {
-                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
-            }
             
             String statement = "WHERE product_id = " + idproduk + "\n";
             
@@ -436,11 +408,6 @@ public class Marketplace {
         
         boolean result = false;
         if (valid) {
-            try {
-                valid = checkAccess(token, id);
-            } catch (IOException ex) {
-                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
-            }
             
             // Sementara image blom dimasukkan, harusnya ada setelah price
             String query = "UPDATE product " +                    
@@ -486,11 +453,6 @@ public class Marketplace {
         
         boolean result = false;
         if (valid) {
-            try {
-                valid = checkAccess(token, id);
-            } catch (IOException ex) {
-                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
-            }
             
             // Sementara image blom dimasukkan, harusnya ada setelah price
             String query = "DELETE FROM product " +                                
@@ -530,7 +492,6 @@ public class Marketplace {
     @WebMethod(operationName = "confirmPurchase")
     public boolean confirmPurchase(@WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "id_prod") String id_prod, @WebParam(name = "quantity") String quantity, @WebParam(name = "buyer_id") String buyer_id, @WebParam(name = "consignee") String consignee, @WebParam(name = "address") String address, @WebParam(name = "postal") String postal, @WebParam(name = "phone") String phone, @WebParam(name = "credit") String credit, @WebParam(name = "verif") String verif, @WebParam(name = "buy_user") String buyer_user) {
         boolean valid = false;
-        String a = "aaa";
         try {
             valid = checkAccess(token, id);
         } catch (IOException ex) {
@@ -550,7 +511,6 @@ public class Marketplace {
             
             try {
                 String queryget = "SELECT * FROM product WHERE product_id = " + id_prod;
-                a= queryget;
                 ResultSet res = db.select(queryget);
                 res.next();
                 
@@ -577,7 +537,6 @@ public class Marketplace {
                     + res.getString("username") + "')";
                     
                 int rs = db.update(query);
-                a = query;
                 db.closeDB();
             } catch (SQLException ex) {
                 Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
