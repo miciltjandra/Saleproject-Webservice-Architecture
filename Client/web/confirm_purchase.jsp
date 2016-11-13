@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Purchase Form</title>
         <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="Javascripts/addscript.js"></script>
     </head>
     <jsp:include page="header.html"/>
     <jsp:include page="menubar.jsp"/>    
@@ -52,7 +53,7 @@
         %>
         <%-- end web service invocation --%>
 
-        <form onsubmit="return validatePurch()" action="ConfirmPurchaseServlet" method="post" id="addform" enctype="multipart/form-data">
+        <form onsubmit="return validatePurch()" action="ConfirmServlet" method="post" id="addform" enctype="multipart/form-data">
 			<span style="margin-right:14px">Quantity</span>:
 			<input type="number" id="quantity" name="quantity" autocomplete="off" value="1" onInput="myFunction()" required min="1" maxlength="10" max="9999999999"/> PCS<br>
 			<p id="demo" style="margin-top: 3px">Total Price: IDR <% out.println(3 * 5);%></p>

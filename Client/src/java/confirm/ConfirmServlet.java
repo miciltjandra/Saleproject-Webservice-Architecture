@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,9 +78,39 @@ public class ConfirmServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+           
+        String user = "";
+        String token = "";
+        String username = "";
         
-        marketplace.Marketplace port = service.getMarketplacePort();        
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("spuser")) {
+                    user = cookie.getValue();
+                }
+                if (cookie.getName().equals("sptoken")) {
+                    token = cookie.getValue();
+                }
+                if (cookie.getName().equals("spusername")) {
+                    username = cookie.getValue();
+                }
+            }
+        }
         
+        String nameprod = request.getParameter("name");
+        String desc = request.getParameter("desc");
+        String price = request.getParameter("price");
+        Object image = request.getParameter("image");
+        response.getWriter().println(username + " with token " + token + " wants to add " + nameprod);
+        
+        marketplace.Marketplace port = service.getMarketplacePort();                        
+    /*                  
+        if(port.confirmPurchase(nameprod, desc, price, token, user, username, image)){
+            response.sendRedirect("yourproducts.jsp");
+        } else {
+            response.getWriter().println("Sorry your request cannot be processed");
+        } */
     }
 
     /**
