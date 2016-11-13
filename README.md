@@ -105,33 +105,49 @@ Anda tidak dituntut untuk mengerjakan ini. Tetapi bila Anda cukup dewa (baca=ter
 Fokus terlebih dahulu menyelesaikan semua spesifikasi yang ada sebelum memikirkan bonus.
 
 ### Penjelasan
-Berikan penjelasan mengenai konsep diatas.
+#### Basis Data Pada Sistem
+Sistem ini menggunakan 2 buah database, yaitu saleprojectaccount dan saleprojectmarket. saleprojectaccount menyimpan informasi yang diperlukan untuk login & register. saleproject market menyimpan informasi produk dan penjualan, sekaligus juga menyimpan like dan informasi user dalam tabel like dan user. 
+#### Konsep *shared session* dengan menggunakan REST
+
+#### Pembangkitan token dan expire time pada sistem yang anda buat.
+#### Kelebihan dan kelemahan dari arsitektur aplikasi tugas ini
 
 ### Pembagian Tugas
-"Gaji buta dilarang dalam tugas ini. Bila tak mengerti, luangkan waktu belajar lebih banyak. Bila belum juga mengerti, belajarlah bersama-sama kelompokmu. Bila Anda sekelompok bingung, bertanyalah (bukan menyontek) ke teman seangkatanmu. Bila seangkatan bingung, bertanyalah pada asisten manapun."
-
-*Harap semua anggota kelompok mengerjakan SOAP dan REST API kedua-duanya*. Tuliskan pembagian tugas seperti berikut ini.
 
 REST :
 1. Generate token : 135130XX
 2. Validasi token : 135130XX
 3. Fungsionaltiax X : 135130XX
-4. ...
+4. Login : 13514108
+5. Register : 13514047
+6. Logout : 13514012
 
 SOAP :
-1. Add Produce : 135130xx
-2. Fungsionalitas Y : 135130xx
-3. ...
+
+1. Catalog : 13514108
+2. Add Product : 13514012
+3. Edit Product : 13514012
+4. Your Products : 13514012
+5. Sales : 13514048
+6. Purchase : 13514048
+7. Confirmation Purchase : 13514048, 13514108
 
 Web app (JSP) :
-1. Halaman Login : 
-2. Halaman X :
-3. ...
+
+1. Login : 13514108
+2. Register : 13514048
+3. Catalog : 13514108
+4. Add Product : 13514012
+5. Edit Product : 13514012
+6. Your Products : 13514012
+7. Sales : 13514048
+8. Purchase : 13514048
+9. Confirmation Purchase : 13514048, 13514108
 
 ## About
+### Team ChickenSaitamaZone
 
-Asisten IF3110 2016
-
-Adin | Chairuni | David | Natan | Nilta | Tifani | Wawan | William
-
-Dosen : Yudistira Dwi Wardhana | Riza Satria Perdana
+Mahasiswa S1 Prodi Teknik Informatika Institut Teknologi Bandung
+Joshua Aditya Kosasih - 13514012 - Betatestah
+Nikolas Wangsaputra - 13514048 - SimpliCty
+Michael -13514108 - Viniel
