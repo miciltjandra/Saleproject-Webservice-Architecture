@@ -495,14 +495,85 @@ public class Marketplace {
 
     /**
      * Web service operation
-     * @param quan
-     * @param consig
+     * @param prdname
+     * @param desc
+     * @param price
+     * @param token
+     * @param id
+     * @param username
      * @return 
-     * 
      */
     @WebMethod(operationName = "confirmPurchase")
-    public Boolean confirmPurchase(@WebParam(name = "quan") int quan, @WebParam(name = "consig") String consig ) {
-        //TODO write your implementation code here:
-        return null;
+    public Boolean confirmPurchase(@WebParam(name = "prdname") String prdname, @WebParam(name = "desc") String desc, @WebParam(name = "price") String price, @WebParam(name = "token") String token, @WebParam(name = "id") String id, @WebParam(name = "username") String username) {
+        boolean valid = false;
+        
+        try {
+            valid = checkAccess(token, id);
+        } catch (IOException ex) {
+            Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        boolean result = false;
+        if (valid) {
+            try {
+                valid = checkAccess(token, id);
+            } catch (IOException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // get date
+            java.util.Date utilDate = new Date();          
+            java.sql.Timestamp date = new java.sql.Timestamp(utilDate.getTime());
+            
+            // Sementara image blom dimasukkan, harusnya ada setelah price
+            String query = "INSERT INTO purchase"
+                    + " (`product_purchased`, "
+                    + "`quantity`, "
+                    + "`buyer_id`, "
+                    + "`consignee`, "
+                    + "`deliv_address`, "
+                    + "`postalcode`, "
+                    + "`phone`, "
+                    + "`creditcard`, "
+                    + "`verification`, "
+                    + "`purchase_date`, "
+                    + "`product_name`, "
+                    + "`price`, "
+                    + "`seller_id`, "
+                    + "`image`, "
+                    + "`buyer_username`,"
+                    + "`seller_username"
+                    + " VALUES ("
+                    + "'15', "
+                    + "'2', "
+                    + "'12', "
+                    + "'asdasd', "
+                    + "'eqewe', "
+                    + "'12312', "
+                    + "'4343434343', "
+                    + "'3123123', "
+                    + "'232', "
+                    + "'42414', "
+                    + "'nama', "
+                    + "'431232', "
+                    + "'14', "
+                    + "'gdfd', "
+                    + "'qerq', "
+                    + "'rwqrq')";
+            
+            MarketDB db = new MarketDB();
+            
+            try {
+                int rs = db.update(query);
+                db.closeDB();
+                if (rs >= 0) {
+                    result = true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Marketplace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
     }
 }
