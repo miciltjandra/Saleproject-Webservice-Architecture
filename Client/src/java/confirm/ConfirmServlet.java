@@ -107,7 +107,7 @@ public class ConfirmServlet extends HttpServlet {
         marketplace.Marketplace port = service.getMarketplacePort();                        
     /*                  
         if(port.confirmPurchase(nameprod, desc, price, token, user, username, image)){
-            response.sendRedirect("yourproducts.jsp");
+            response.sendRedirect("purchases.jsp");
         } else {
             response.getWriter().println("Sorry your request cannot be processed");
         } */
