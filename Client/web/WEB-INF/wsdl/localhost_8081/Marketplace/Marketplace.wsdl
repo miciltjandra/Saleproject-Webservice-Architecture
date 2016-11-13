@@ -61,6 +61,12 @@
 <message name="deleteProductResponse">
 <part name="parameters" element="tns:deleteProductResponse"/>
 </message>
+<message name="confirmPurchase">
+<part name="parameters" element="tns:confirmPurchase"/>
+</message>
+<message name="confirmPurchaseResponse">
+<part name="parameters" element="tns:confirmPurchaseResponse"/>
+</message>
 <portType name="Marketplace">
 <operation name="checkAccess">
 <input wsam:Action="http://marketplace/Marketplace/checkAccessRequest" message="tns:checkAccess"/>
@@ -98,6 +104,10 @@
 <operation name="deleteProduct">
 <input wsam:Action="http://marketplace/Marketplace/deleteProductRequest" message="tns:deleteProduct"/>
 <output wsam:Action="http://marketplace/Marketplace/deleteProductResponse" message="tns:deleteProductResponse"/>
+</operation>
+<operation name="confirmPurchase">
+<input wsam:Action="http://marketplace/Marketplace/confirmPurchaseRequest" message="tns:confirmPurchase"/>
+<output wsam:Action="http://marketplace/Marketplace/confirmPurchaseResponse" message="tns:confirmPurchaseResponse"/>
 </operation>
 </portType>
 <binding name="MarketplacePortBinding" type="tns:Marketplace">
@@ -178,6 +188,15 @@
 </output>
 </operation>
 <operation name="deleteProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="confirmPurchase">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

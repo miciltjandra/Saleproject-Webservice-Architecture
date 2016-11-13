@@ -15,7 +15,7 @@
     <jsp:include page="header.html"/>
     <jsp:include page="menubar.jsp"/>    
     <body class="middle">
-        <div class="large text"> Please add your product here </div>
+        <div class="large text"> Please confirm your purchase </div>
          <br /><hr /><br />
         <%-- start web service invocation --%>
         <%
@@ -55,7 +55,7 @@
         <form onsubmit="return validatePurch()" action="ConfirmPurchaseServlet" method="post" id="addform" enctype="multipart/form-data">
 			<span style="margin-right:14px">Quantity</span>:
 			<input type="number" id="quantity" name="quantity" autocomplete="off" value="1" onInput="myFunction()" required min="1" maxlength="10" max="9999999999"/> PCS<br>
-			<p id="demo" style="margin-top: 3px">Total Price: IDR</p>
+			<p id="demo" style="margin-top: 3px">Total Price: IDR <% out.println(3 * 5);%></p>
 		
 			<script>
 			function myFunction() {

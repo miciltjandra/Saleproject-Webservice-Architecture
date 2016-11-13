@@ -495,9 +495,13 @@ public class Marketplace {
 
     /**
      * Web service operation
+     * @param quan
+     * @param consig
+     * @return 
+     * 
      */
     @WebMethod(operationName = "confirmPurchase")
-    public Boolean confirmPurchase() {
+    public Boolean confirmPurchase(@WebParam(name = "quan") int quan, @WebParam(name = "consig") String consig ) {
         //TODO write your implementation code here:
         return null;
     }
