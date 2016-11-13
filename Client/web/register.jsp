@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
         <link rel="stylesheet" href="style.css">
+        <script src="Javascripts/registerscript.js"></script>
     </head>
     <jsp:include page="header.html"/>
     <body class="middle">
@@ -42,25 +43,25 @@
                 // TODO handle custom exceptions here
             }
         %>
-        <form action = "RegisterServlet" method = "post" id = "registerform"  class="text">
+        <form action = "RegisterServlet" method = "post" id = "registerform"  class="text" onsubmit="return validateform()">
             <legend class="text large"> Register </legend>
             <hr>
             Full Name <br/>
-            <input type = "text" class="reg_text" name = "fullname"> <br/>
+            <input type = "text" class="reg_text" name = "fullname" id="name" required="required" oninput="validate(this.value, 'name')"> <br/>
             Username <br/>
-            <input type = "text" class="reg_text" name = "user"> <br/>
+            <input type = "text" class="reg_text" name = "user" id="user" required="required" oninput="validate(this.value,this.name)"> <br/>
             Email<br/>
-            <input type = "text" class="reg_text" name = "email"> <br/>
+            <input type = "text" class="reg_text" name = "email" id="email" required="required" oninput="validate(this.value, this.name)"> <br/>
             Password<br/>
-            <input type = "password" class="reg_text" name = "pass"> <br/>
+            <input type = "password" class="reg_text" name = "pass" id="pass" required="required"> <br/>
             Confirm Password <br/>
-            <input type = "password" class="reg_text" name = "conpass"> <br/>
+            <input type = "password" class="reg_text" name = "conpass" id="pass2" required="required" oninput="confirmPassword()"> <br/>
             Full Address <br/>
-            <input type = "text" class="reg_text" name = "add"> <br/>
+            <input type = "text" class="reg_text" name = "add" id="address" required="required"> <br/>
             Postal Code <br/>
-            <input type = "text" class="reg_text" name = "postal"> <br/>
+            <input type = "text" class="reg_text" name = "postal" id="postcode" maxlength="5" required="required" oninput="validate(this.value,this.name)"> <br/>
             Phone Number <br/>
-            <input type = "text" class="reg_text" name = "phone"> <br/>
+            <input type = "text" class="reg_text" name = "phone" id="phone" maxlength="12" required="required" oninput="validate(this.value,this.name)"> <br/>
             
             
             <input type = "submit" class="submit" value = "Register">
