@@ -7,6 +7,7 @@ package confirm;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -99,7 +100,7 @@ public class ConfirmServlet extends HttpServlet {
         }
         
         String idprod = request.getParameter("id");
-        idprod = idprod.substring(0,idprod.length()-2);
+        String idpro = idprod.substring(0,idprod.length()-2);
         String quantity = request.getParameter("quantity");
         String buyer_id = request.getParameter("buyer_id");
         String consignee = request.getParameter("consignee");
@@ -110,11 +111,15 @@ public class ConfirmServlet extends HttpServlet {
         String verif = request.getParameter("verif");
         marketplace.Marketplace port = service.getMarketplacePort();                        
                       
-        if(port.confirmPurchase(token, user, idprod, quantity, buyer_id, consignee, address, postal, phone, credit, verif)){
+        if(port.confirmPurchase(token, user, idpro, quantity, buyer_id, consignee, address, postal, phone, credit, verif)){
             response.sendRedirect("purchases.jsp");
         } else {
             response.getWriter().println("Sorry your request cannot be processed");
-            response.getWriter().println(idprod+quantity+buyer_id+consignee+address+postal+phone+credit+verif);
+            response.getWriter().println(idpro+" "+quantity+" "+buyer_id+" "+consignee+" "+address+" "+postal+" "+phone+" "+credit+" "+verif);
+            java.util.Date utilDate = new Date();          
+            java.sql.Timestamp date = new java.sql.Timestamp(utilDate.getTime());
+            response.getWriter().println(date);
+        
         } 
     }
 
