@@ -15,7 +15,7 @@
     <jsp:include page="header.html"/>
     <jsp:include page="menubar.jsp"/>
     <body class="middle">
-        <div class="large text"> Please add your product here </div>
+        <div class="large text"> Please confirm your purchases </div>
         <br /><hr /><br />
         <%-- start web service invocation --%>
         <%

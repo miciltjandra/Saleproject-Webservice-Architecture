@@ -31,6 +31,42 @@
 <message name="getLikedResponse">
 <part name="parameters" element="tns:getLikedResponse"/>
 </message>
+<message name="retrieveSales">
+<part name="parameters" element="tns:retrieveSales"/>
+</message>
+<message name="retrieveSalesResponse">
+<part name="parameters" element="tns:retrieveSalesResponse"/>
+</message>
+<message name="addProduct">
+<part name="parameters" element="tns:addProduct"/>
+</message>
+<message name="addProductResponse">
+<part name="parameters" element="tns:addProductResponse"/>
+</message>
+<message name="retrieveId">
+<part name="parameters" element="tns:retrieveId"/>
+</message>
+<message name="retrieveIdResponse">
+<part name="parameters" element="tns:retrieveIdResponse"/>
+</message>
+<message name="editProduct">
+<part name="parameters" element="tns:editProduct"/>
+</message>
+<message name="editProductResponse">
+<part name="parameters" element="tns:editProductResponse"/>
+</message>
+<message name="deleteProduct">
+<part name="parameters" element="tns:deleteProduct"/>
+</message>
+<message name="deleteProductResponse">
+<part name="parameters" element="tns:deleteProductResponse"/>
+</message>
+<message name="confirmPurchase">
+<part name="parameters" element="tns:confirmPurchase"/>
+</message>
+<message name="confirmPurchaseResponse">
+<part name="parameters" element="tns:confirmPurchaseResponse"/>
+</message>
 <portType name="Marketplace">
 <operation name="checkAccess">
 <input wsam:Action="http://marketplace/Marketplace/checkAccessRequest" message="tns:checkAccess"/>
@@ -48,6 +84,30 @@
 <operation name="getLiked">
 <input wsam:Action="http://marketplace/Marketplace/getLikedRequest" message="tns:getLiked"/>
 <output wsam:Action="http://marketplace/Marketplace/getLikedResponse" message="tns:getLikedResponse"/>
+</operation>
+<operation name="retrieveSales">
+<input wsam:Action="http://marketplace/Marketplace/retrieveSalesRequest" message="tns:retrieveSales"/>
+<output wsam:Action="http://marketplace/Marketplace/retrieveSalesResponse" message="tns:retrieveSalesResponse"/>
+</operation>
+<operation name="addProduct">
+<input wsam:Action="http://marketplace/Marketplace/addProductRequest" message="tns:addProduct"/>
+<output wsam:Action="http://marketplace/Marketplace/addProductResponse" message="tns:addProductResponse"/>
+</operation>
+<operation name="retrieveId">
+<input wsam:Action="http://marketplace/Marketplace/retrieveIdRequest" message="tns:retrieveId"/>
+<output wsam:Action="http://marketplace/Marketplace/retrieveIdResponse" message="tns:retrieveIdResponse"/>
+</operation>
+<operation name="editProduct">
+<input wsam:Action="http://marketplace/Marketplace/editProductRequest" message="tns:editProduct"/>
+<output wsam:Action="http://marketplace/Marketplace/editProductResponse" message="tns:editProductResponse"/>
+</operation>
+<operation name="deleteProduct">
+<input wsam:Action="http://marketplace/Marketplace/deleteProductRequest" message="tns:deleteProduct"/>
+<output wsam:Action="http://marketplace/Marketplace/deleteProductResponse" message="tns:deleteProductResponse"/>
+</operation>
+<operation name="confirmPurchase">
+<input wsam:Action="http://marketplace/Marketplace/confirmPurchaseRequest" message="tns:confirmPurchase"/>
+<output wsam:Action="http://marketplace/Marketplace/confirmPurchaseResponse" message="tns:confirmPurchaseResponse"/>
 </operation>
 </portType>
 <binding name="MarketplacePortBinding" type="tns:Marketplace">
@@ -83,6 +143,60 @@
 </output>
 </operation>
 <operation name="getLiked">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="retrieveSales">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="addProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="retrieveId">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="editProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="deleteProduct">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="confirmPurchase">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
