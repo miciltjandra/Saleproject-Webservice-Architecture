@@ -4,6 +4,8 @@
     Author     : NN
 --%>
 
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -48,30 +50,29 @@
                     response.sendRedirect("login.jsp");
                 } else {
                     for (marketplace.Purchase purchase : result) {
-                        out.println("<div class=\"product\">");
+                        out.println("<div class=\"purchase\">");
                         out.println("<div class=\"bold\">" + port.formatDate(purchase.getPurchaseDate()) + "</div>");
                         out.println("<div>" + port.formatTime(purchase.getPurchaseDate()) + "</div>");
                         out.println("<hr/>");
-                        out.println("<div class=\"catalogleft\">");
+                        out.println("<div class=\"left\">");
                         out.println("<img class=\"icon\" src=\"" + purchase.getImage() + "\" alt=\"" + purchase.getProductName() + "\"/> <br/>");
                         out.println("</div>");
                         out.println("<div class=\"mid\">");
-                        out.println("<div class=\"bold\">" + purchase.getProductName() + "</div>");
-                        out.println("<div class=\"price\"> IDR " + purchase.getQuantity() * purchase.getPrice() + "</div>");
-                        out.println("<div class=\"price\">" + purchase.getQuantity() + "pcs </div>");
-                        out.println("<div class=\"price\"> @IDR " + purchase.getPrice() + "</div>");
-                        out.println("Bought by <span class=\"bold\">" + purchase.getBuyerUsername() + "</div>");
-                        out.println("</div>");
-                        out.println("<div class=\"right\">");
-                        out.println("delivery to <span class=\"bold\">" + purchase.getConsignee() + "</span><br>");
+                        out.println("<div class=\"name\">" + purchase.getProductName() + "</div>");
+                        
+                        out.println("<div class=\"detail\">IDR "+ NumberFormat.getNumberInstance(Locale.GERMAN).format(purchase.getQuantity() * purchase.getPrice()) + "<br/>\n");
+                        out.println(purchase.getQuantity() + " pcs<br/>\n");
+                        out.println("@IDR " + NumberFormat.getNumberInstance(Locale.GERMAN).format(purchase.getPrice())+ "</div><br/>\n");
+                        out.println("bought by <span class='bold'>"+purchase.getBuyerUsername() + " </span> <br/>\n");
+                        out.println("</div><div class=\"right\">");
+                        
+                        out.println("Delivery to <span class=\"bold\">" + purchase.getConsignee() + "</span><br>");
                         out.println(purchase.getDelivAddress() + "<br>");
                         out.println(purchase.getPostalcode() + "<br>");
                         out.println(purchase.getPhone() + "<br>");
                         out.println("</div>");
-                        out.println("<div class=\"clear\">");
-                        out.println("<hr/>\n<br/>");
-                        out.println("</div>");
                         out.println("</div>\n");
+                        out.println("<br/>\n<br/>\n");
                     }
                 }
             } catch (Exception ex) {
